@@ -8,9 +8,9 @@ surveyjs(
   schema,
   data = NULL,
   readOnly = FALSE,
-  live = TRUE,
-  theme = "defaultV2",
-  locale = "en",
+  live = FALSE,
+  locale = NULL,
+  version = c("2", "1"),
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -25,13 +25,13 @@ surveyjs(
 
 \item{live}{Logical; send live updates while typing? Default \code{TRUE}.}
 
-\item{theme}{SurveyJS theme name (e.g., \code{"defaultV2"} for v1.x).}
-
 \item{locale}{Locale code (e.g., \code{"en"}, \code{"de"}).}
 
 \item{width, height}{CSS size or number for the widget container.}
 
 \item{elementId}{Optional element id.}
+
+\item{theme}{SurveyJS theme name (e.g., \code{"defaultV2"} for v1.x).}
 }
 \value{
 An htmlwidget to be used in Shiny UIs.

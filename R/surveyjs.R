@@ -15,38 +15,32 @@
 #' @return An htmlwidget to be used in Shiny UIs.
 #' @export
 surveyjs <- function(schema,
-                     data     = NULL,
+                     data = NULL,
                      readOnly = FALSE,
-                     live     = TRUE,
-                     theme    = "defaultV2",
-                     locale   = "en",
-                     width    = NULL,
-                     height   = NULL,
-                     elementId = NULL) {
+                     live = FALSE,
+                     locale = NULL,
+                     theme_vars = NULL,          # <— NEU
+                     version = c("2", "1"),
+                     width = NULL, height = NULL, elementId = NULL) {
 
-  stopifnot(!is.null(schema))
-  if (!is.character(schema) && !is.list(schema)) stop("`schema` must be a list or JSON string.", call. = FALSE)
+  version <- match.arg(version)
 
-  schema_json <- if (is.character(schema)) schema else
-    jsonlite::toJSON(schema, auto_unbox = TRUE)
-
+  schema_json <- if (is.character(schema)) schema else jsonlite::toJSON(schema, auto_unbox = TRUE)
   x <- list(
-    schema   = schema_json,
-    data     = data,
-    readOnly = readOnly,
-    live     = live,
-    theme    = theme,
-    locale   = locale
+    schema     = schema_json,
+    data       = data,
+    readOnly   = readOnly,
+    live       = live,
+    locale     = locale,
+    themeVars  = theme_vars          # <— NEU (wird als Liste nach JS gegeben)
   )
 
   htmlwidgets::createWidget(
-    name        = "surveyjs",
-    x           = x,
-    width       = width,
-    height      = height,
-    package     = "rsurveyjs",
-    elementId   = elementId,
-    dependencies = list(.dep_surveyjs_core())
+    name = "surveyjs",
+    x = x,
+    width = width, height = height,
+    package = "rsurveyjs", elementId = elementId,
+    dependencies = list(dep_surveyjs_core(version))
   )
 }
 
