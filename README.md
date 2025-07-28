@@ -1,8 +1,8 @@
 
 # rsurveyjs
 
-[![R-CMD-check](https://github.com/tazinho/rsurveyjs/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tazinho/rsurveyjs/actions/workflows/R-CMD-check.yaml)
-[![pkgdown](https://github.com/tazinho/rsurveyjs/actions/workflows/pkgdown.yaml/badge.svg)](https://tazinho.github.io/rsurveyjs/)
+[![R-CMD-check](https://github.com/Tazinho/rsurveyjs/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Tazinho/rsurveyjs/actions/workflows/R-CMD-check.yaml)
+[![pkgdown](https://github.com/Tazinho/rsurveyjs/actions/workflows/pkgdown.yaml/badge.svg)](https://Tazinho.github.io/rsurveyjs/)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
