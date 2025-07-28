@@ -3,7 +3,6 @@
 .RData
 .Ruserdata
 inst/doc
-docs
 /doc/
 /Meta/
 inst/examples/**/_files/
