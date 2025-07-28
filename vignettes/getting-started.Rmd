@@ -1,0 +1,26 @@
+---
+title: "Getting started with rsurveyjs"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with rsurveyjs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```r
+library(shiny)
+library(rsurveyjs)
+
+schema <- list(
+  title="Quick survey",
+  pages=list(list(elements=list(
+    list(type="text", name="title", title="Idea title", isRequired=TRUE),
+    list(type="comment", name="problem", title="Problem statement", isRequired=TRUE)
+))))
+ui <- fluidPage(surveyjsOutput("s"), verbatimTextOutput("final"))
+server <- function(input, output, session){
+  output$s <- renderSurveyjs(surveyjs(schema, live = TRUE))
+  output$final <- renderPrint(req(input$s_data))
+}
+shinyApp(ui, server)
+```

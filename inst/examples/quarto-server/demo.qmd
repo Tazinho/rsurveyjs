@@ -1,0 +1,67 @@
+---
+title: "rsurveyjs – Quarto (server) Demo"
+format: html
+server: shiny
+---
+
+```{r}
+#| label: setup
+#| echo: false
+# Load packages and define schema
+library(shiny)
+library(rsurveyjs)
+
+schema <- list(
+  title = "Quick survey",
+  pages = list(
+    list(elements = list(
+      list(type="text",    name="title",   title="Idea title", isRequired=TRUE),
+      list(type="comment", name="problem", title="Problem statement", isRequired=TRUE),
+      list(type="dropdown",name="bu",      title="Business unit", isRequired=TRUE,
+           choices=c("Sales","Operations","HR","Finance","IT","Other"))
+    ))
+  )
+)
+```
+
+## Form
+
+```{r}
+#| label: ui
+#| echo: false
+# Placeholder for the survey widget
+surveyjsOutput("s1", height = "380px")
+```
+
+## Live (while typing)
+
+```{r}
+#| label: live-ui
+#| echo: false
+verbatimTextOutput("live")
+```
+
+## Final (after clicking "Complete")
+
+```{r}
+#| label: final-ui
+#| echo: false
+verbatimTextOutput("final")
+```
+
+```{r}
+#| label: server
+#| echo: false
+# Server logic: render widget + outputs
+output$s1 <- renderSurveyjs(surveyjs(schema, live = TRUE))
+
+output$live <- renderPrint({
+  req(input$s1_data_live)
+  input$s1_data_live
+})
+
+output$final <- renderPrint({
+  req(input$s1_data)
+  input$s1_data
+})
+```

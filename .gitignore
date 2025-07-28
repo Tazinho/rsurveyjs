@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+inst/doc
+docs
+/doc/
+/Meta/
+inst/examples/**/_files/
+inst/examples/**/_freeze/
+inst/examples/**/_cache/

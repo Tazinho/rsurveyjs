@@ -1,0 +1,9 @@
+dependencies:
+  - name: surveyjs-core
+    version: 1.12.12
+    src: htmlwidgets/lib/surveyjs/1.12.12
+    script:
+      - survey.core.min.js
+      - survey-js-ui.min.js
+    stylesheet:
+      - defaultV2.min.css

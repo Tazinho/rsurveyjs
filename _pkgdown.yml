@@ -1,0 +1,12 @@
+template:
+  bootstrap: 5
+
+reference:
+  - title: "Widget"
+    contents:
+      - surveyjs
+      - surveyjsOutput
+      - renderSurveyjs
+  - title: "Server update API"
+    contents:
+      - updateSurveyjs

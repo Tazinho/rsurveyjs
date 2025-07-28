@@ -1,0 +1,29 @@
+Package: rsurveyjs
+Type: Package
+Title: SurveyJS Htmlwidget and Shiny Bindings
+Version: 0.1.0
+Authors@R: person("Malte", "Grosser", email = "malte.grosser@gmail.com", role = c("aut", "cre"))
+Description: Render SurveyJS forms in Shiny from JSON schemas. Provides an
+    htmlwidget that emits final submissions and optional live updates, plus a
+    server-side API to update answers, toggle read-only mode, and change theme or locale.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends:
+    R (>= 3.6)
+Imports:
+    htmltools,
+    htmlwidgets,
+    jsonlite
+Suggests:
+    shiny,
+    testthat (>= 3.0.0),
+    shinytest2,
+    knitr,
+    rmarkdown,
+    pkgdown
+URL: https://github.com/tazinho/rsurveyjs
+BugReports: https://github.com/tazinho/rsurveyjs/issues
+VignetteBuilder: knitr
+Config/testthat/edition: 3
