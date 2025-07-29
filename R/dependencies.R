@@ -1,3 +1,4 @@
+#' @keywords internal
 dep_surveyjs_core <- function() {
   htmltools::htmlDependency(
     name    = "surveyjs-v2",

@@ -10,6 +10,10 @@ navbar:
       - articles
     right:
       - github
+  components:
+    github:
+      icon: fab fa-github
+      href: https://github.com/Tazinho/rsurveyjs
 
 reference:
   - title: Main Widget
@@ -24,6 +28,9 @@ reference:
       - surveyjs_schema
 
 articles:
-  - title: "Getting started"
+  - title: Getting Started
     contents:
       - getting-started
+  - title: Live Server Updates
+    contents:
+      - server-updates

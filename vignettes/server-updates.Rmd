@@ -1,0 +1,87 @@
+---
+title: "Live Updates and Dynamic Control with updateSurveyjs()"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Live Updates and Dynamic Control with updateSurveyjs()}
+  %\VignetteEngine{rmarkdown::render}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(rsurveyjs)
+library(shiny)
+```
+
+## Live Data and Server-Side Updates
+
+This vignette demonstrates how to:
+- Enable live response tracking
+- Dynamically update a SurveyJS widget with new data or settings
+
+### Example: Minimal App with Live Updates
+
+```r
+ui <- fluidPage(
+  surveyjsOutput("mysurvey"),
+  verbatimTextOutput("live_output"),
+  actionButton("lock", "Set Readonly"),
+  actionButton("reload", "Replace Survey")
+)
+
+server <- function(input, output, session) {
+
+  schema <- list(
+    title = "Feedback",
+    pages = list(list(
+      elements = list(
+        list(type = "text", name = "name", title = "What is your name?"),
+        list(type = "comment", name = "feedback", title = "Your feedback")
+      )
+    ))
+  )
+
+  output$mysurvey <- renderSurveyjs({
+    surveyjs(schema, live = TRUE)
+  })
+
+  output$live_output <- renderPrint({
+    input$mysurvey_data_live
+  })
+
+  observeEvent(input$lock, {
+    updateSurveyjs(session, "mysurvey", readOnly = TRUE)
+  })
+
+  observeEvent(input$reload, {
+    updateSurveyjs(session, "mysurvey", schema = list(
+      title = "New Survey",
+      pages = list(list(
+        elements = list(
+          list(type = "rating", name = "satisfaction", title = "Rate us")
+        )
+      ))
+    ))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+---
+
+### Notes
+
+- `live = TRUE` enables real-time tracking in `input$<id>_data_live`
+- Use `updateSurveyjs()` to push updates from server to client
+
+---
+
+### See Also
+
+- [`surveyjs()` documentation](../reference/surveyjs.html)
+- [SurveyJS JSON documentation](https://surveyjs.io/form-library/documentation/json-configuration)

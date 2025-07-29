@@ -35,7 +35,9 @@ allowing you to update its data, read-only mode, theme, locale, or schema dynami
 from the server using Shiny.
 }
 \examples{
-# Inside a Shiny server function:
+\dontrun{
+# Inside a Shiny app server function:
 updateSurveyjs(session, "mysurvey", data = list(q1 = "Yes"))
+}
 
 }

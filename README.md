@@ -5,6 +5,12 @@
 [![pkgdown](https://github.com/Tazinho/rsurveyjs/actions/workflows/pkgdown.yaml/badge.svg)](https://Tazinho.github.io/rsurveyjs/)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/rsurveyjs)](https://CRAN.R-project.org/package=rsurveyjs)
+![Last
+Commit](https://img.shields.io/github/last-commit/Tazinho/rsurveyjs.svg)
+[![License:
+MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Minimal bindings for [SurveyJS v2.x](https://surveyjs.io/) in R/Shiny.
 
@@ -25,12 +31,10 @@ remotes::install_github("Tazinho/rsurveyjs")
 
 ## ✨ Features
 
-- Fully supports **SurveyJS v2**
-- Use **themes** like `"modern"`, `"defaultV2"`, or `"orange"`
-- Inject your own **CSS variables** (`theme_vars`) for brand
-  customization
-- Real-time syncing with Shiny (`input$<id>_data` and
-  `input$<id>_data_live`)
+- Integrates **SurveyJS v2** in R
+- Supports **Shiny input/output** for complete + live responses
+- Customize via **CSS variables** using (`theme_vars`)
+- Dynamically update widgets via `updateSurveyjs()`
 - Supports **readonly**, **initial values**, and **multilingual forms**
 
 ------------------------------------------------------------------------
@@ -48,7 +52,6 @@ surveyjs(
       list(type = "text", name = "c", title = "Any comments?")
     )
   ),
-  theme = "modern",
   theme_vars = list("--sjs-primary-backcolor" = "#39f"),
   locale = "en",
   live = TRUE

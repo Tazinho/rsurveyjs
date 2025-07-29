@@ -35,7 +35,7 @@
 <li class="nav-item"><a class="nav-link" href="articles/index.html">Articles</a></li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/tazinho/rsurveyjs/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/Tazinho/rsurveyjs"><span class="fa fab fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -46,7 +46,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="rsurveyjs">rsurveyjs<a class="anchor" aria-label="anchor" href="#rsurveyjs"></a>
 </h1></div>
-<p><a href="https://github.com/Tazinho/rsurveyjs/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/Tazinho/rsurveyjs/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://Tazinho.github.io/rsurveyjs/" class="external-link"><img src="https://github.com/Tazinho/rsurveyjs/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a> # rsurveyjs <img src="reference/figures/logo.png" align="right" height="140"></p>
+<p><a href="https://github.com/Tazinho/rsurveyjs/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/Tazinho/rsurveyjs/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://Tazinho.github.io/rsurveyjs/" class="external-link"><img src="https://github.com/Tazinho/rsurveyjs/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a> <a href="https://CRAN.R-project.org/package=rsurveyjs" class="external-link"><img src="https://www.r-pkg.org/badges/version/rsurveyjs" alt="CRAN status"></a> <img src="https://img.shields.io/github/last-commit/Tazinho/rsurveyjs.svg" alt="Last Commit"><a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a></p>
 <p>Minimal bindings for <a href="https://surveyjs.io/" class="external-link">SurveyJS v2.x</a> in R/Shiny.</p>
 <p><strong>rsurveyjs</strong> lets you render and interact with fully customizable surveys, forms and quizzes in Shiny apps using <a href="https://surveyjs.io/" class="external-link">SurveyJS</a> v2.</p>
 <hr>
@@ -62,12 +62,11 @@
 <h2 id="sparkles-features">✨ Features<a class="anchor" aria-label="anchor" href="#sparkles-features"></a>
 </h2>
 <ul>
-<li>Fully supports <strong>SurveyJS v2</strong>
+<li>Integrates <strong>SurveyJS v2</strong> in R</li>
+<li>Supports <strong>Shiny input/output</strong> for complete + live responses</li>
+<li>Customize via <strong>CSS variables</strong> using (<code>theme_vars</code>)</li>
+<li>Dynamically update widgets via <code><a href="reference/updateSurveyjs.html">updateSurveyjs()</a></code>
 </li>
-<li>Use <strong>themes</strong> like <code>"modern"</code>, <code>"defaultV2"</code>, or <code>"orange"</code>
-</li>
-<li>Inject your own <strong>CSS variables</strong> (<code>theme_vars</code>) for brand customization</li>
-<li>Real-time syncing with Shiny (<code>input$&lt;id&gt;_data</code> and <code>input$&lt;id&gt;_data_live</code>)</li>
 <li>Supports <strong>readonly</strong>, <strong>initial values</strong>, and <strong>multilingual forms</strong>
 </li>
 </ul>
@@ -77,7 +76,7 @@
 <h2 id="wrench-usage-example">🔧 Usage Example<a class="anchor" aria-label="anchor" href="#wrench-usage-example"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tazinho/rsurveyjs" class="external-link">rsurveyjs</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tazinho.github.io/rsurveyjs">rsurveyjs</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/surveyjs.html">surveyjs</a></span><span class="op">(</span></span>
 <span>  schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -87,7 +86,6 @@
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"text"</span>, name <span class="op">=</span> <span class="st">"c"</span>, title <span class="op">=</span> <span class="st">"Any comments?"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  theme <span class="op">=</span> <span class="st">"modern"</span>,</span>
 <span>  theme_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"--sjs-primary-backcolor"</span> <span class="op">=</span> <span class="st">"#39f"</span><span class="op">)</span>,</span>
 <span>  locale <span class="op">=</span> <span class="st">"en"</span>,</span>
 <span>  live <span class="op">=</span> <span class="cn">TRUE</span></span>

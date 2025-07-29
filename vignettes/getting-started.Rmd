@@ -3,9 +3,10 @@ title: "Getting started with rsurveyjs"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Getting started with rsurveyjs}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{rmarkdown::render}
   %\VignetteEncoding{UTF-8}
 ---
+
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(

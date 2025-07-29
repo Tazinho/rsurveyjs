@@ -13,8 +13,10 @@
 #' @param locale Optional locale code (e.g. `"en"`, `"de"`).
 #'
 #' @examples
-#' # Inside a Shiny server function:
+#' \dontrun{
+#' # Inside a Shiny app server function:
 #' updateSurveyjs(session, "mysurvey", data = list(q1 = "Yes"))
+#' }
 #'
 #' @export
 updateSurveyjs <- function(session, id,

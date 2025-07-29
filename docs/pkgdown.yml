@@ -3,7 +3,8 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   getting-started: getting-started.html
-last_built: 2025-07-29T01:12Z
+  server-updates: server-updates.html
+last_built: 2025-07-29T01:44Z
 urls:
   reference: https://tazinho.github.io/rsurveyjs/reference
   article: https://tazinho.github.io/rsurveyjs/articles
