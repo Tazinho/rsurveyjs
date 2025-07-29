@@ -19,7 +19,8 @@ surveyjs <- function(schema,
                      readOnly = FALSE,
                      live = FALSE,
                      locale = NULL,
-                     theme_vars = NULL,          # <— NEU
+                     theme = NULL,          # <— NEU
+                     theme_vars = NULL,
                      version = c("2", "1"),
                      width = NULL, height = NULL, elementId = NULL) {
 
@@ -32,7 +33,9 @@ surveyjs <- function(schema,
     readOnly   = readOnly,
     live       = live,
     locale     = locale,
-    themeVars  = theme_vars          # <— NEU (wird als Liste nach JS gegeben)
+    theme      = theme,       # <— NEU
+    theme_vars = theme_vars,
+    version    = version
   )
 
   htmlwidgets::createWidget(
@@ -63,3 +66,4 @@ renderSurveyjs <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) expr <- substitute(expr)
   htmlwidgets::shinyRenderWidget(expr, surveyjsOutput, env, quoted = TRUE)
 }
+

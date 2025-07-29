@@ -10,6 +10,7 @@ surveyjs(
   readOnly = FALSE,
   live = FALSE,
   locale = NULL,
+  theme_vars = NULL,
   version = c("2", "1"),
   width = NULL,
   height = NULL,
