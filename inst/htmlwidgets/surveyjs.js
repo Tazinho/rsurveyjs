@@ -1,52 +1,59 @@
 HTMLWidgets.widget({
-  name: 'surveyjs',
-  type: 'output',
+  name: "surveyjs",
+
+  type: "output",
+
   factory: function(el, width, height) {
     return {
       renderValue: function(x) {
-        el.innerHTML = "";
+        console.log("📦 SurveyJS renderValue() called");
 
-        if (x.locale && Survey.localization) {
-          Survey.localization.currentLocale = x.locale;
+        // Reset container
+        el.innerHTML = '<div id="surveyjs-inner"></div>';
+        const container = el.querySelector("#surveyjs-inner");
+
+        // Apply modern theme class
+        el.classList.add("sv-root", "sv-root-modern");
+
+        // Debug info
+        console.log("SurveyJS schema:", x.schema);
+        console.log("React:", typeof React);
+        console.log("ReactDOM:", typeof ReactDOM);
+        console.log("Survey:", typeof Survey);
+        console.log("SurveyReact:", typeof SurveyReact);
+
+        // Check dependencies are loaded
+        if (
+          typeof React === "undefined" ||
+          typeof ReactDOM === "undefined" ||
+          typeof SurveyReact === "undefined" ||
+          typeof Survey === "undefined"
+        ) {
+          console.error("❌ One or more SurveyJS dependencies are missing.");
+          return;
         }
 
-        if (x.theme && Survey.StylesManager) {
-          try {
-            Survey.StylesManager.applyTheme(x.theme);
-          } catch (e) {
-            console.warn("Theme konnte nicht angewendet werden:", x.theme);
-          }
-        }
+        // Build model
+        let surveyModel = new Survey.Model(x.schema);
+        console.log("SurveyJS model created:", surveyModel);
+        console.log("All questions:", surveyModel.getAllQuestions());
 
-        if (x.theme_vars) {
-          const style = document.createElement("style");
-          let css = ":root {";
-          for (const [k, v] of Object.entries(x.theme_vars)) {
-            css += `${k}: ${v};`;
-          }
-          css += "}";
-          style.innerHTML = css;
-          document.head.appendChild(style);
-        }
+        // Defer rendering to ensure DOM is ready (important for Shiny)
+        setTimeout(function () {
+          ReactDOM.render(
+            React.createElement(SurveyReact.Survey, {
+              model: surveyModel
+            }),
+            container
+          );
 
-        const model = new Survey.Model(x.schema);
+          console.log("✅ SurveyJS rendered into:", container);
+          console.log("Inner HTML after render:", el.innerHTML);
+        }, 0);
+      },
 
-        if (x.data) model.data = x.data;
-        if (x.readOnly) model.mode = "display";
-
-        if (x.live && HTMLWidgets.shinyMode) {
-          model.onValueChanged.add(function(_, options) {
-            Shiny.setInputValue(el.id + "_data_live", model.data);
-          });
-        }
-
-        if (HTMLWidgets.shinyMode) {
-          model.onComplete.add(function(_, options) {
-            Shiny.setInputValue(el.id + "_data", model.data);
-          });
-        }
-
-        model.render(el);
+      resize: function(width, height) {
+        // No-op: layout handled by SurveyJS
       }
     };
   }

@@ -23,35 +23,35 @@
 #' @seealso [surveyjs_themes()], [surveyjs_schema()]
 #' @return A Shiny widget (htmlwidget).
 #' @export
-surveyjs <- function(schema,
-                     data = NULL,
-                     readOnly = FALSE,
-                     live = FALSE,
-                     theme = NULL,
-                     theme_vars = NULL,
-                     locale = NULL,
-                     width = NULL, height = NULL,
-                     elementId = NULL) {
+surveyjs <- function(schema, data = NULL, readOnly = FALSE, live = FALSE,
+                     theme = NULL, theme_vars = NULL, locale = NULL,
+                     width = NULL, height = NULL, elementId = NULL) {
 
-  schema_json <- if (is.character(schema)) schema else jsonlite::toJSON(schema, auto_unbox = TRUE)
+  schema_json <- if (is.character(schema)) schema
+  else jsonlite::toJSON(schema, auto_unbox = TRUE)
 
   x <- list(
-    schema      = schema_json,
-    data        = data,
-    readOnly    = readOnly,
-    live        = live,
-    theme       = theme,
-    theme_vars  = theme_vars,
-    locale      = locale
+    schema     = schema_json,
+    data       = data,
+    readOnly   = readOnly,
+    live       = live,
+    theme      = theme,
+    theme_vars = theme_vars,
+    locale     = locale
   )
 
   htmlwidgets::createWidget(
     name = "surveyjs",
     x = x,
-    width = width, height = height,
+    width = width,
+    height = height,
     package = "rsurveyjs",
     elementId = elementId,
-    dependencies = list(dep_surveyjs_core())
+    dependencies = list(
+      dep_react(),         # MUST BE FIRST
+      dep_reactdom(),      # THEN ReactDOM
+      dep_surveyjs_core()  # THEN SurveyJS
+    )
   )
 }
 
