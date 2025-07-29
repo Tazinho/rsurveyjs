@@ -6,4 +6,4 @@
 - Shiny bindings: final submission in `input$id_data`, optional live updates in `input$id_data_live`.
 - Server update API: `updateSurveyjs()` to prefill data, toggle read-only, change theme/locale, or replace the schema.
 - Works in Shiny apps and Quarto documents with `server: shiny`.
-- Bundled SurveyJS runtime (MIT) pinned to v1.12.12.
+- Bundled SurveyJS runtime (MIT) pinned to v2.2.6.

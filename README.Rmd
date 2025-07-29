@@ -9,90 +9,73 @@ output:
 [![pkgdown](https://github.com/Tazinho/rsurveyjs/actions/workflows/pkgdown.yaml/badge.svg)](https://Tazinho.github.io/rsurveyjs/)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
-**rsurveyjs** is an R htmlwidget + Shiny bindings for the **SurveyJS Form Library**.  
-It renders a SurveyJS survey from a JSON/list schema, returns the final submission in
-`input$id_data`, and (optionally) emits live updates while the user types in
-`input$id_data_live`. It also supports programmatic updates from the server.
+Minimal bindings for [SurveyJS v2.x](https://surveyjs.io/) in R/Shiny.
 
-> The SurveyJS runtime (v1.12.12) is bundled under its MIT license in  
-> `inst/htmlwidgets/lib/surveyjs/1.12.12/`.
+**rsurveyjs** lets you render and interact with fully customizable surveys, forms and quizzes in Shiny apps using [SurveyJS](https://surveyjs.io/) v2.
 
-## Installation (dev)
+---
 
-From a local checkout of this repo:
+## 🚀 Installation
 
 ```r
-# in the package root (where DESCRIPTION lives)
-devtools::install()   # or devtools::load_all() while developing
+# Install from GitHub
+remotes::install_github("Tazinho/rsurveyjs")
 ```
 
-## Minimal Shiny example
+---
+
+## ✨ Features
+
+- Fully supports **SurveyJS v2**
+- Use **themes** like `"modern"`, `"defaultV2"`, or `"orange"`
+- Inject your own **CSS variables** (`theme_vars`) for brand customization
+- Real-time syncing with Shiny (`input$<id>_data` and `input$<id>_data_live`)
+- Supports **readonly**, **initial values**, and **multilingual forms**
+
+---
+
+## 🔧 Usage Example
 
 ```r
-library(shiny)
 library(rsurveyjs)
 
-schema <- list(
-  title = "Quick survey",
-  pages = list(
-    list(elements = list(
-      list(type="text",    name="title",   title="Idea title", isRequired=TRUE),
-      list(type="comment", name="problem", title="Problem statement", isRequired=TRUE),
-      list(type="dropdown",name="bu",      title="Business unit", isRequired=TRUE,
-           choices=c("Sales","Operations","HR","Finance","IT","Other"))
-    ))
-  )
+surveyjs(
+  schema = list(
+    title = "Feedback",
+    questions = list(
+      list(type = "rating", name = "s", title = "How satisfied are you?"),
+      list(type = "text", name = "c", title = "Any comments?")
+    )
+  ),
+  theme = "modern",
+  theme_vars = list("--sjs-primary-backcolor" = "#39f"),
+  locale = "en",
+  live = TRUE
 )
-
-ui <- fluidPage(
-  surveyjsOutput("s1"),
-  h4("Final (after Complete):"),
-  verbatimTextOutput("final"),
-  h4("Live (while typing):"),
-  verbatimTextOutput("live")
-)
-
-server <- function(input, output, session){
-  # live = TRUE enables _data_live updates while typing
-  output$s1 <- renderSurveyjs(surveyjs(schema, live = TRUE))
-
-  output$final <- renderPrint({ req(input$s1_data);      input$s1_data })
-  output$live  <- renderPrint({ req(input$s1_data_live); input$s1_data_live })
-}
-
-shinyApp(ui, server)
 ```
 
-## Programmatic updates (server → widget)
+---
 
-Use `updateSurveyjs()` to toggle read-only, prefill data, change locale/theme, or swap the schema.
+## 📚 SurveyJS Documentation
 
-```r
-# Toggle read-only (example button)
-observeEvent(input$lock, {
-  updateSurveyjs(session, "s1", readOnly = TRUE)
-})
+- [SurveyJS Homepage](https://surveyjs.io/)
+- [Theme Customization Docs](https://surveyjs.io/survey-creator/documentation/theme-editor)
+- [Release Notes](https://surveyjs.io/stay-updated/release-notes)
 
-# Prefill some answers
-observeEvent(input$prefill, {
-  updateSurveyjs(session, "s1",
-                 data = list(title="Prefilled title",
-                             problem="Some starter text...",
-                             bu="IT"))
-})
+---
 
-# Swap locale / theme (if desired)
-# updateSurveyjs(session, "s1", locale = "de", theme = "defaultV2")
-```
+## 🧪 Shiny Integration
 
-## Example app included
+| Feature                 | Shiny Input ID        |
+|-------------------------|------------------------|
+| Completed form data     | `input$<id>_data`      |
+| Live updates while typing | `input$<id>_data_live` |
 
-A slightly richer demo lives at `inst/examples/demo.R`. Run it with:
+---
 
-```r
-shiny::runApp(system.file("examples/demo", package = "rsurveyjs"), launch.browser = TRUE)
-```
+## 🪪 License
 
-## License
+- SurveyJS Form Library is licensed under MIT.
+- rsurveyjs is MIT licensed.
 
-Your wrapper code is MIT‑licensed. The bundled SurveyJS runtime files remain under their own MIT license (included alongside the JS/CSS).
+Note: **Survey Creator is not included** due to licensing restrictions.

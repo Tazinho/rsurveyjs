@@ -1,49 +1,57 @@
 #' SurveyJS widget for Shiny
 #'
-#' Render a SurveyJS form from a JSON/list schema. Final answers are delivered to
-#' `input[[paste0(id, "_data")]]` after the user clicks **Complete**. If `live = TRUE`,
-#' live updates while typing are delivered to `input[[paste0(id, "_data_live")]]`.
+#' Render a [SurveyJS](https://surveyjs.io/) form from a JSON schema.
 #'
-#' @param schema   List or JSON string; SurveyJS survey JSON.
-#' @param data     Optional named list of initial answers.
+#' This widget renders a fully customizable survey using SurveyJS v2 inside a Shiny app.
+#' It supports themes, read-only mode, initial values, localization, and real-time updates.
+#'
+#' Final answers are delivered to `input[[paste0(id, "_data")]]` after the user
+#' clicks **Complete**. If `live = TRUE`, updates are delivered to
+#' `input[[paste0(id, "_data_live")]]` during input.
+#'
+#' @param schema List or JSON string; must follow the
+#'   [SurveyJS JSON Schema](https://surveyjs.io/form-library/documentation/json-schema).
+#' @param data Optional named list of initial values.
 #' @param readOnly Logical; render in read-only mode.
-#' @param live     Logical; send live updates while typing? Default `TRUE`.
-#' @param theme    SurveyJS theme name (e.g., `"defaultV2"` for v1.x).
-#' @param locale   Locale code (e.g., `"en"`, `"de"`).
-#' @param width,height CSS size or number for the widget container.
-#' @param elementId Optional element id.
-#' @return An htmlwidget to be used in Shiny UIs.
+#' @param live Logical; send live updates while typing? Default `FALSE`.
+#' @param theme Currently unused: SurveyJS v2 no longer supports named built‑in themes.
+#' @param theme_vars Optional named list of CSS variables (e.g. `--sjs-primary-backcolor`).
+#' @param locale Optional language code (e.g. `"en"`, `"de"`). See [SurveyJS localization docs](https://surveyjs.io/form-library/documentation/localization).
+#' @param width,height Optional CSS size or number.
+#' @param elementId Optional element id for the container.
+#'
+#' @seealso [surveyjs_themes()], [surveyjs_schema()]
+#' @return A Shiny widget (htmlwidget).
 #' @export
 surveyjs <- function(schema,
                      data = NULL,
                      readOnly = FALSE,
                      live = FALSE,
-                     locale = NULL,
-                     theme = NULL,          # <— NEU
+                     theme = NULL,
                      theme_vars = NULL,
-                     version = c("2", "1"),
-                     width = NULL, height = NULL, elementId = NULL) {
-
-  version <- match.arg(version)
+                     locale = NULL,
+                     width = NULL, height = NULL,
+                     elementId = NULL) {
 
   schema_json <- if (is.character(schema)) schema else jsonlite::toJSON(schema, auto_unbox = TRUE)
+
   x <- list(
-    schema     = schema_json,
-    data       = data,
-    readOnly   = readOnly,
-    live       = live,
-    locale     = locale,
-    theme      = theme,       # <— NEU
-    theme_vars = theme_vars,
-    version    = version
+    schema      = schema_json,
+    data        = data,
+    readOnly    = readOnly,
+    live        = live,
+    theme       = theme,
+    theme_vars  = theme_vars,
+    locale      = locale
   )
 
   htmlwidgets::createWidget(
     name = "surveyjs",
     x = x,
     width = width, height = height,
-    package = "rsurveyjs", elementId = elementId,
-    dependencies = list(dep_surveyjs_core(version))
+    package = "rsurveyjs",
+    elementId = elementId,
+    dependencies = list(dep_surveyjs_core())
   )
 }
 
@@ -66,4 +74,3 @@ renderSurveyjs <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) expr <- substitute(expr)
   htmlwidgets::shinyRenderWidget(expr, surveyjsOutput, env, quoted = TRUE)
 }
-

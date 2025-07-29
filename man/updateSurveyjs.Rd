@@ -2,7 +2,7 @@
 % Please edit documentation in R/update.R
 \name{updateSurveyjs}
 \alias{updateSurveyjs}
-\title{Update a SurveyJS widget on the client}
+\title{Dynamically update a \code{surveyjs()} widget from the server side}
 \usage{
 updateSurveyjs(
   session,
@@ -15,9 +15,9 @@ updateSurveyjs(
 )
 }
 \arguments{
-\item{session}{Shiny session.}
+\item{session}{Shiny session object.}
 
-\item{id}{Output id used in \code{surveyjsOutput()}.}
+\item{id}{Output ID used in \code{surveyjsOutput()}.}
 
 \item{data}{Optional named list of answers to set.}
 
@@ -25,10 +25,17 @@ updateSurveyjs(
 
 \item{schema}{Optional new schema (list or JSON string).}
 
-\item{theme}{Optional theme name.}
+\item{theme}{Optional theme name (e.g. \code{"modern"}).}
 
-\item{locale}{Optional locale code.}
+\item{locale}{Optional locale code (e.g. \code{"en"}, \code{"de"}).}
 }
 \description{
-Update a SurveyJS widget on the client
+This function sends a message to an existing SurveyJS widget rendered in the UI,
+allowing you to update its data, read-only mode, theme, locale, or schema dynamically
+from the server using Shiny.
+}
+\examples{
+# Inside a Shiny server function:
+updateSurveyjs(session, "mysurvey", data = list(q1 = "Yes"))
+
 }

@@ -9,36 +9,48 @@ surveyjs(
   data = NULL,
   readOnly = FALSE,
   live = FALSE,
-  locale = NULL,
+  theme = NULL,
   theme_vars = NULL,
-  version = c("2", "1"),
+  locale = NULL,
   width = NULL,
   height = NULL,
   elementId = NULL
 )
 }
 \arguments{
-\item{schema}{List or JSON string; SurveyJS survey JSON.}
+\item{schema}{List or JSON string; must follow the
+\href{https://surveyjs.io/form-library/documentation/json-schema}{SurveyJS JSON Schema}.}
 
-\item{data}{Optional named list of initial answers.}
+\item{data}{Optional named list of initial values.}
 
 \item{readOnly}{Logical; render in read-only mode.}
 
-\item{live}{Logical; send live updates while typing? Default \code{TRUE}.}
+\item{live}{Logical; send live updates while typing? Default \code{FALSE}.}
 
-\item{locale}{Locale code (e.g., \code{"en"}, \code{"de"}).}
+\item{theme}{Currently unused: SurveyJS v2 no longer supports named built‑in themes.}
 
-\item{width, height}{CSS size or number for the widget container.}
+\item{theme_vars}{Optional named list of CSS variables (e.g. \code{--sjs-primary-backcolor}).}
 
-\item{elementId}{Optional element id.}
+\item{locale}{Optional language code (e.g. \code{"en"}, \code{"de"}). See \href{https://surveyjs.io/form-library/documentation/localization}{SurveyJS localization docs}.}
 
-\item{theme}{SurveyJS theme name (e.g., \code{"defaultV2"} for v1.x).}
+\item{width, height}{Optional CSS size or number.}
+
+\item{elementId}{Optional element id for the container.}
 }
 \value{
-An htmlwidget to be used in Shiny UIs.
+A Shiny widget (htmlwidget).
 }
 \description{
-Render a SurveyJS form from a JSON/list schema. Final answers are delivered to
-\code{input[[paste0(id, "_data")]]} after the user clicks \strong{Complete}. If \code{live = TRUE},
-live updates while typing are delivered to \code{input[[paste0(id, "_data_live")]]}.
+Render a \href{https://surveyjs.io/}{SurveyJS} form from a JSON schema.
+}
+\details{
+This widget renders a fully customizable survey using SurveyJS v2 inside a Shiny app.
+It supports themes, read-only mode, initial values, localization, and real-time updates.
+
+Final answers are delivered to \code{input[[paste0(id, "_data")]]} after the user
+clicks \strong{Complete}. If \code{live = TRUE}, updates are delivered to
+\code{input[[paste0(id, "_data_live")]]} during input.
+}
+\seealso{
+\code{\link[=surveyjs_themes]{surveyjs_themes()}}, \code{\link[=surveyjs_schema]{surveyjs_schema()}}
 }

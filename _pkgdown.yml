@@ -2,12 +2,28 @@ url: https://tazinho.github.io/rsurveyjs
 template:
   bootstrap: 5
 
+navbar:
+  structure:
+    left:
+      - home
+      - reference
+      - articles
+    right:
+      - github
+
 reference:
-  - title: "Widget"
+  - title: Main Widget
     contents:
       - surveyjs
       - surveyjsOutput
       - renderSurveyjs
-  - title: "Server update API"
-    contents:
       - updateSurveyjs
+  - title: Themes & Schema
+    contents:
+      - surveyjs_themes
+      - surveyjs_schema
+
+articles:
+  - title: "Getting started"
+    contents:
+      - getting-started

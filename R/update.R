@@ -1,12 +1,21 @@
-#' Update a SurveyJS widget on the client
+#' Dynamically update a `surveyjs()` widget from the server side
 #'
-#' @param session Shiny session.
-#' @param id      Output id used in `surveyjsOutput()`.
-#' @param data     Optional named list of answers to set.
+#' This function sends a message to an existing SurveyJS widget rendered in the UI,
+#' allowing you to update its data, read-only mode, theme, locale, or schema dynamically
+#' from the server using Shiny.
+#'
+#' @param session Shiny session object.
+#' @param id Output ID used in `surveyjsOutput()`.
+#' @param data Optional named list of answers to set.
 #' @param readOnly Optional logical; toggle read-only mode.
-#' @param schema   Optional new schema (list or JSON string).
-#' @param theme    Optional theme name.
-#' @param locale   Optional locale code.
+#' @param schema Optional new schema (list or JSON string).
+#' @param theme Optional theme name (e.g. `"modern"`).
+#' @param locale Optional locale code (e.g. `"en"`, `"de"`).
+#'
+#' @examples
+#' # Inside a Shiny server function:
+#' updateSurveyjs(session, "mysurvey", data = list(q1 = "Yes"))
+#'
 #' @export
 updateSurveyjs <- function(session, id,
                            data     = NULL,

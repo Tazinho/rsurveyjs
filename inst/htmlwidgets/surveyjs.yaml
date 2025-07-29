@@ -1,16 +1,9 @@
 dependencies:
-  - name: surveyjs-v1
-    version: 1.9.131
-    src: htmlwidgets/lib/surveyjs/v1
-    script:
-      - survey.react.min.js
-    stylesheet:
-      - survey.min.css
   - name: surveyjs-v2
     version: 2.2.6
-    src: htmlwidgets/lib/surveyjs/v2
+    src: htmlwidgets/lib/surveyjs/2.2.6
     script:
-      - survey-core.min.js
+      - survey.core.min.js       # ← changed from survey-core.min.js
       - survey-react-ui.min.js
     stylesheet:
-      - modern.min.css
+      - survey-core.min.css
