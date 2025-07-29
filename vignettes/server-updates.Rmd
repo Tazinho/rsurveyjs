@@ -1,9 +1,11 @@
 ---
-title: "Live Updates and Dynamic Control with updateSurveyjs()"
-output: rmarkdown::html_vignette
+title: "Live Updates and Dynamic Control"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
-  %\VignetteIndexEntry{Live Updates and Dynamic Control with updateSurveyjs()}
-  %\VignetteEngine{rmarkdown::render}
+  %\VignetteIndexEntry{Live Updates and Dynamic Control}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -25,7 +27,7 @@ This vignette demonstrates how to:
 
 ### Example: Minimal App with Live Updates
 
-```r
+```{r}
 ui <- fluidPage(
   surveyjsOutput("mysurvey"),
   verbatimTextOutput("live_output"),

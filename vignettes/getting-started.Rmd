@@ -1,9 +1,11 @@
 ---
-title: "Getting started with rsurveyjs"
-output: rmarkdown::html_vignette
+title: "Getting Started"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
-  %\VignetteIndexEntry{Getting started with rsurveyjs}
-  %\VignetteEngine{rmarkdown::render}
+  %\VignetteIndexEntry{Getting Started}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -14,6 +16,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 library(rsurveyjs)
+library(shiny)
 ```
 
 ## Basic usage
@@ -86,7 +89,7 @@ surveyjs(
 
 In Shiny apps, use `live = TRUE` to receive updates continuously:
 
-```r
+```{r App}
 ui <- fluidPage(
   surveyjsOutput("mysurvey"),
   verbatimTextOutput("out")
