@@ -1,0 +1,142 @@
+---
+title: "Survey Modes"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{survey-modes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  toggle = "hide"
+)
+library(rsurveyjs)
+```
+
+# Survey Modes in rsurveyjs
+
+SurveyJS (and rsurveyjs) support several structural modes of organizing questions and pages. These are triggered by different schema structures.
+
+_All modes are supported natively by SurveyJS and passed through by rsurveyjs.
+You can mix multiple modes together (e.g., panels inside multi-page surveys)._
+
+## Single-page Mode
+
+Triggered when your schema contains a top-level questions list.
+
+```{r}
+surveyjs(schema = list(
+  title = "Single Page Survey",
+  questions = list(
+    list(type = "text", name = "email", title = "What is your email?")
+  )
+))
+```
+
+## Multi-page Mode
+
+Triggered when your schema uses pages instead of questions.
+
+```{r}
+surveyjs(schema = list(
+  title = "Multi Page Survey",
+  pages = list(
+    list(elements = list(list(type = "text", name = "first", title = "First name"))),
+    list(elements = list(list(type = "text", name = "last", title = "Last name")))
+  )
+))
+```
+
+## Panel Mode
+
+Uses type = "panel" to logically group related questions.
+
+```{r}
+surveyjs(schema = list(
+  title = "Panel Example",
+  questions = list(
+    list(
+      type = "panel",
+      name = "personal",
+      title = "Personal Info",
+      elements = list(
+        list(type = "text", name = "first", title = "First Name"),
+        list(type = "text", name = "last", title = "Last Name")
+      )
+    )
+  )
+))
+```
+
+## Dynamic Panel Mode
+
+Uses type = "paneldynamic" to create repeatable groups of questions.
+
+```{r}
+surveyjs(schema = list(
+  title = "Dynamic Panel",
+  questions = list(
+    list(
+      type = "paneldynamic",
+      name = "jobs",
+      title = "Previous Jobs",
+      templateElements = list(
+        list(type = "text", name = "employer", title = "Employer"),
+        list(type = "text", name = "role", title = "Role")
+      ),
+      panelCount = 1
+    )
+  )
+))
+```
+
+## Matrix Mode
+
+Uses type = "matrix" to display tabular inputs.
+
+```{r}
+surveyjs(schema = list(
+  title = "Matrix Example",
+  questions = list(
+    list(
+      type = "matrix",
+      name = "satisfaction",
+      title = "Rate the following",
+      rows = list("Quality", "Speed"),
+      columns = list("Bad", "Okay", "Good")
+    )
+  )
+))
+```
+
+## Read-Only Expression Mode
+
+Uses type = "expression" to compute and display a calculated value.
+
+```{r}
+surveyjs(schema = list(
+  title = "Expression Example",
+  questions = list(
+    list(type = "text", name = "a", title = "Enter a"),
+    list(type = "text", name = "b", title = "Enter b"),
+    list(type = "expression", name = "sum", title = "Sum", expression = "{a} + {b}")
+  )
+))
+```
+
+## Static Content Mode
+
+Displays HTML or images using type = "html" or type = "image".
+
+```{r}
+surveyjs(schema = list(
+  title = "Static Content",
+  questions = list(
+    list(type = "html", name = "intro", html = "<b>Welcome to the survey</b>"),
+    list(type = "image", name = "logo", imageLink = "https://via.placeholder.com/300x100")
+  )
+))
+```

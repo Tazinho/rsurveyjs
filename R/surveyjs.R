@@ -14,7 +14,7 @@
 #' @param data Optional named list of initial values.
 #' @param readOnly Logical; render in read-only mode.
 #' @param live Logical; send live updates while typing? Default `FALSE`.
-#' @param theme Currently unused: SurveyJS v2 no longer supports named built‑in themes.
+#' @param theme Theme, default "DefaultLight".
 #' @param theme_vars Optional named list of CSS variables (e.g. `--sjs-primary-backcolor`).
 #' @param locale Optional language code (e.g. `"en"`, `"de"`). See [SurveyJS localization docs](https://surveyjs.io/form-library/documentation/localization).
 #' @param width,height Optional CSS size or number.
@@ -24,7 +24,7 @@
 #' @return A Shiny widget (htmlwidget).
 #' @export
 surveyjs <- function(schema, data = NULL, readOnly = FALSE, live = FALSE,
-                     theme = NULL, theme_vars = NULL, locale = NULL,
+                     theme = "DefaultLight", theme_vars = NULL, locale = NULL,
                      width = NULL, height = NULL, elementId = NULL) {
 
   schema_json <- if (is.character(schema)) schema

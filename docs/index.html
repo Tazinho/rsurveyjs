@@ -124,6 +124,23 @@
 <hr>
 </div>
 <div class="section level2">
+<h2 id="design-decisions">Design Decisions<a class="anchor" aria-label="anchor" href="#design-decisions"></a>
+</h2>
+<div class="section level3">
+<h3 id="no-validation-on-the-r-side">No Validation on the R Side<a class="anchor" aria-label="anchor" href="#no-validation-on-the-r-side"></a>
+</h3>
+<p><code>rsurveyjs</code> does not perform schema validation in R. This decision is based on the fact that SurveyJS already performs runtime validation in the browser. It catches basic issues like malformed JSON or unknown question types and typically fails gracefully — for example, by skipping invalid questions or logging a console warning. However, also SurveyJS does not enforce strict pre-validation:</p>
+<ul>
+<li><p>Invalid types like <code>type = "foo"</code> fail silently</p></li>
+<li><p><code>name</code> is required — it acts as the key in the survey result; without it, the answer is not saved.</p></li>
+<li><p>Invalid logic or expressions may only throw errors at runtime</p></li>
+</ul>
+<p>While an unofficial JSON Schema exists, it’s not actively maintained. Adding deep validation in R would introduce unnecessary complexity, dependencies, and risk drift from the actual rendering engine.</p>
+<p>The philosophy of <code>rsurveyjs</code> is to keep things lightweight and trust the developer. If something breaks, it will break at render time — just as it would in a native SurveyJS project.</p>
+<hr>
+</div>
+</div>
+<div class="section level2">
 <h2 id="comparison-of-surveyjs-and-rsurveyjs">Comparison of surveyjs and rsurveyjs<a class="anchor" aria-label="anchor" href="#comparison-of-surveyjs-and-rsurveyjs"></a>
 </h2>
 </div>
@@ -287,6 +304,38 @@
 </ul>
 <hr>
 </div>
+</div>
+<div class="section level2">
+<h2 id="known-limitations-so-far">Known limitations so far<a class="anchor" aria-label="anchor" href="#known-limitations-so-far"></a>
+</h2>
+<ul>
+<li>Do i have full theme support via theme?</li>
+<li>Your themes didnt work (“contrast-dark”, “flat-light”, etc.) instead * ThreeDimensionalLightPanelless worked …</li>
+<li>theme_vars doesnt seem to do anything.</li>
+<li>Custom CSS styling doesnt seem to do anything</li>
+<li>Locale doesnt seem to do anything</li>
+<li>Read only doesnt seem to work yet</li>
+<li>Default values does not work yet</li>
+<li>Live results tracking example doesnt work yet</li>
+<li>Completion example does not work or is not meaningful</li>
+<li>Dynamic Update example does not work or is not meaningful</li>
+<li>Handling: 📥 Input validation / error handling 📦 Embedding in other widgets or layouts *� Unit testing examples 🧩 Extending with custom question types</li>
+<li>What about</li>
+<li>Survey events / hooks ✅ ❌ Not exposed (yet)</li>
+<li>File uploads ✅ ❌ Not integrated</li>
+<li>Custom widgets / question renderers ✅ ❌ JS-level customization only</li>
+<li>Survey Creator (visual editor) ⚠️ Separate product ❌ Not included due to license</li>
+<li>PDF export ✅ (via add-on) ❌ Not included</li>
+<li>Mobile responsiveness ✅ ✅ Inherited from SurveyJS</li>
+<li>Debug the question types link in vignette examples</li>
+<li>find out why the rendering in vignettes is so strange</li>
+<li>debug naming warnings in the command line when building vignettes and packagedown</li>
+<li>It must be possible to embed surveys cleaner into web/vignettes</li>
+<li>has surveyjs also quizzes or polls?</li>
+<li>tests for all examples are needed</li>
+<li>does the high level structure for vignettes make sense?</li>
+</ul>
+<hr>
 </div>
 <div class="section level2">
 <h2 id="identification_card-license">🪪 License<a class="anchor" aria-label="anchor" href="#identification_card-license"></a>

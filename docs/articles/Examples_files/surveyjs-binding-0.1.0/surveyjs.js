@@ -1,54 +1,75 @@
 HTMLWidgets.widget({
   name: "surveyjs",
-
   type: "output",
 
   factory: function (el, width, height) {
     return {
       renderValue: function (x) {
-        console.log("📦 SurveyJS renderValue() called");
-
+        // Set up container and needed libraries
         const container = el;
         const Survey = window.Survey;
         const SurveyReact = window.SurveyReact;
 
+        // Make sure everything we need is loaded
         if (!Survey || !SurveyReact || !React || !ReactDOM) {
           console.error("❌ Required libraries not loaded.");
           return;
         }
 
-        console.log("SurveyJS schema:", x.schema);
-        console.log("React:", React);
-        console.log("ReactDOM:", ReactDOM);
-        console.log("Survey:", Survey);
-        console.log("SurveyReact:", SurveyReact);
-
-        // Set SurveyJS locale before creating the model
+        // Set the survey language (if one is given)
+        // This ensures the correct locale is used for text, buttons, etc.
+        // Set the global default
         if (x.locale) {
-          Survey.settings.defaultLocale = x.locale;
-          console.log("🌐 Locale set to:", x.locale);
+          Survey.locale = x.locale;
         }
 
-        // ✅ Step 1: Create the survey model
+        // Create the survey model from the schema
         let surveyModel = new Survey.Model(x.schema);
-        console.log("✅ SurveyJS model created:", surveyModel);
-        console.log("All questions:", surveyModel.getAllQuestions());
 
-        // ✅ Step 2: Apply theme if available
+        // Set locale directly on the model (more reliable)
+        if (x.locale) {
+          surveyModel.locale = x.locale;
+        }
+
+        // 🎨 Apply a theme (with optional overrides from theme_vars)
         if (x.theme && typeof SurveyTheme !== "undefined") {
           const themeName = x.theme.toLowerCase();
+
           const themeKey = Object.keys(SurveyTheme).find(key =>
-            key.toLowerCase() === themeName || key.toLowerCase().includes(themeName)
+                                                           key.toLowerCase() === themeName || key.toLowerCase().includes(themeName)
           );
+
           if (themeKey) {
-            console.log("🎨 Applying theme:", themeKey);
-            surveyModel.applyTheme(SurveyTheme[themeKey]);
+            // Clone the theme object so we don't modify the original
+            const themeObject = { ...SurveyTheme[themeKey] };
+
+            // If custom theme_vars are provided, inject them into cssVariables
+            // 🎯 Check for unknown theme_vars before merging
+            if (x.theme_vars && typeof x.theme_vars === "object") {
+              const knownVars = Object.keys(themeObject.cssVariables || {});
+              const suppliedVars = Object.keys(x.theme_vars);
+              const unknownVars = suppliedVars.filter(k => !knownVars.includes(k));
+
+            if (unknownVars.length > 0) {
+              console.warn(`⚠️ Some theme_vars are not recognized in theme "${themeKey}":`, unknownVars);
+            }
+
+            // 🎨 Merge valid (and possibly unknown) theme_vars anyway
+            themeObject.cssVariables = {
+              ...(themeObject.cssVariables || {}),
+              ...x.theme_vars
+            };
+            }
+
+            // Apply the modified theme to this survey model
+            surveyModel.applyTheme(themeObject);
           } else {
-            console.warn("⚠️ Theme not found:", x.theme);
+            console.warn(`⚠️ Theme "${x.theme}" not found. Skipping theme and theme_vars.`);
           }
         }
 
-        // ✅ Step 3: Defer rendering to ensure DOM is ready (important for Shiny)
+        // Render the survey into the container
+        // We wait a tiny bit just to make sure everything is ready (especially helpful in Shiny)
         setTimeout(function () {
           ReactDOM.render(
             React.createElement(SurveyReact.Survey, {
@@ -56,14 +77,11 @@ HTMLWidgets.widget({
             }),
             container
           );
-
-          console.log("✅ SurveyJS rendered into:", container);
-          console.log("Inner HTML after render:", el.innerHTML);
         }, 0);
       },
 
       resize: function (width, height) {
-        // Optional: implement resizing logic if needed
+        // You can add resizing suppert here if needed later
       }
     };
   }

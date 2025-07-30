@@ -43,7 +43,12 @@ dep_surveyjs_core <- function() {
   htmltools::htmlDependency(
     name = "surveyjs", version = "2.2.6",
     src = c(file = system.file("htmlwidgets/lib/surveyjs", package = "rsurveyjs")),
-    script = c("survey.core.min.js", "survey-react-ui.min.js", "survey.themes.min.js"),
+    script = c(
+      "survey.core.min.js",
+      "survey-react-ui.min.js",
+      "survey.themes.min.js",
+      "survey.i18n.min.js"
+    ),
     stylesheet = "survey-core.min.css",
     all_files = TRUE
   )

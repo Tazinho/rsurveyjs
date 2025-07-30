@@ -9,7 +9,7 @@ surveyjs(
   data = NULL,
   readOnly = FALSE,
   live = FALSE,
-  theme = NULL,
+  theme = "DefaultLight",
   theme_vars = NULL,
   locale = NULL,
   width = NULL,
@@ -27,7 +27,7 @@ surveyjs(
 
 \item{live}{Logical; send live updates while typing? Default \code{FALSE}.}
 
-\item{theme}{Currently unused: SurveyJS v2 no longer supports named built‑in themes.}
+\item{theme}{Theme, default "DefaultLight".}
 
 \item{theme_vars}{Optional named list of CSS variables (e.g. \code{--sjs-primary-backcolor}).}
 

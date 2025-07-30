@@ -37,4 +37,10 @@ articles:
   - title: Examples
     contents:
       - examples
+  - title: Question Types
+    contents:
+      - question-types
+  - title: Survey Modes
+    contents:
+      - survey-modes
 

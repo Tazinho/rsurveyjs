@@ -9,7 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -50,6 +49,8 @@ surveyjs(schema = list(
 
 ## Different Question Types
 
+**surveyjs** provides a variety of [fully documented](https://surveyjs.io/form-library/documentation/question) question types. For most useful question-type examples in **rsurveyjs** just head to [question type examples](articles/question-types.html).
+
 ```{r}
   surveyjs(schema = list(
     title = "Question Types Example",
@@ -64,4 +65,64 @@ surveyjs(schema = list(
       )
     )
   ))
+```
+
+
+## Themes
+
+Themes are well documented under [Themes & Styles](https://surveyjs.io/form-library/documentation/manage-default-themes-and-styles) from the original surveyjs documentation. General speaking every theme comes with a light/dark version and in a panel/panelless variant. For convenience all available themes are referenced under `surveyjs_themes()` within `rsurveyjs`.
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Themed Survey",
+    questions = list(
+      list(type = "text", name = "name", title = "Name?"),
+      list(type = "rating", name = "rating", title = "Rate us")
+    )
+  ),
+  theme = "ThreeDimensionalLightPanelless"  # try: "contrast-dark", "flat-light", etc.
+)
+```
+
+## Theme Variables
+
+You can pass css variables to style the available themes via the `theme_vars` argument.
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Custom Theme Colors",
+    questions = list(
+      list(type = "rating", name = "rating", title = "How was it?")
+    )
+  ),
+  theme = "DefaultLightPanelless",
+  theme_vars = list(
+    "--sjs-primary-backcolor" = "rgba(0, 128, 255, 1)",        # Strong blue
+    "--sjs-primary-forecolor" = "#ffffff",                     # White text
+    "--sjs-border-default" = "rgba(0, 0, 0, 0.1)",              # Soft border
+    "--sjs-corner-radius" = "12px",                            # Rounded corners
+    "--sjs-shadow-medium" = "0 4px 12px rgba(0, 0, 0, 0.3)"     # Bigger shadow
+  )
+)
+```
+
+## Language
+
+Technical key-words like "Complete" get properly translated via the `locale` argument.
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Zufriedenheit",
+    pages = list(
+      list(name = "p1", elements = list(
+        list(type = "text", name = "name", title = "Ihr Name?"),
+        list(type = "rating", name = "satisfaction", title = "Zufrieden?")
+      ))
+    )
+  ),
+  locale = "fr"  # try "fr", "en", "es"
+)
 ```

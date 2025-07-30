@@ -10,7 +10,7 @@ surveyjs_themes()
 A character vector of theme names.
 }
 \description{
-Common built-in themes for use with the \code{theme} argument in \code{surveyjs()}.
+Common built-in themes for use with the \code{theme} argument in \code{surveyjs()} as documented on \href{https://surveyjs.io/form-library/documentation/manage-default-themes-and-styles}{surveyjs - Themes & Styles} every theme comes with a light & dark version and once with and without panels.
 }
 \examples{
 surveyjs_themes()
