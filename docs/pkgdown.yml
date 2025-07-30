@@ -2,9 +2,10 @@ pandoc: '3.4'
 pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
+  examples: examples.html
   getting-started: getting-started.html
   server-updates: server-updates.html
-last_built: 2025-07-29T01:44Z
+last_built: 2025-07-30T12:49Z
 urls:
   reference: https://tazinho.github.io/rsurveyjs/reference
   article: https://tazinho.github.io/rsurveyjs/articles

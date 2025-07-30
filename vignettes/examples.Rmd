@@ -1,0 +1,67 @@
+---
+title: "Examples"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(rsurveyjs)
+```
+
+## Basic usage (JSON-style)
+
+To render a survey, pass a JSON-compatible list to `surveyjs()`:
+
+```{r}
+surveyjs(schema = list(
+  title = "JSON-based Example",
+  questions = list(
+    list(type = "text", name = "name", title = "Your name?")
+  )
+))
+```
+
+## Multiple pages
+
+```{r}
+surveyjs(schema = list(
+  title = "Multi-Page Example",
+  pages = list(
+    list(name = "page1", elements = list(
+      list(type = "text", name = "first", title = "First name"),
+      list(type = "text", name = "last", title = "Last name")
+    )),
+    list(name = "page2", elements = list(
+      list(type = "rating", name = "satisfaction", title = "Satisfaction?")
+    ))
+  )
+))
+```
+
+## Different Question Types
+
+```{r}
+  surveyjs(schema = list(
+    title = "Question Types Example",
+    questions = list(
+      list(type = "text", name = "name", title = "Your name?"),
+      list(type = "rating", name = "satisfaction", title = "How was it?"),
+      list(
+        type = "dropdown",
+        name = "country",
+        title = "Select country",
+        choices = list("Germany", "France", "USA")
+      )
+    )
+  ))
+```

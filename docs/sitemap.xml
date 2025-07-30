@@ -1,5 +1,6 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://tazinho.github.io/rsurveyjs/404.html</loc></url>
+<url><loc>https://tazinho.github.io/rsurveyjs/articles/examples.html</loc></url>
 <url><loc>https://tazinho.github.io/rsurveyjs/articles/getting-started.html</loc></url>
 <url><loc>https://tazinho.github.io/rsurveyjs/articles/index.html</loc></url>
 <url><loc>https://tazinho.github.io/rsurveyjs/articles/server-updates.html</loc></url>
@@ -8,6 +9,9 @@
 <url><loc>https://tazinho.github.io/rsurveyjs/LICENSE-text.html</loc></url>
 <url><loc>https://tazinho.github.io/rsurveyjs/LICENSE.html</loc></url>
 <url><loc>https://tazinho.github.io/rsurveyjs/news/index.html</loc></url>
+<url><loc>https://tazinho.github.io/rsurveyjs/reference/dep_react.html</loc></url>
+<url><loc>https://tazinho.github.io/rsurveyjs/reference/dep_reactdom.html</loc></url>
+<url><loc>https://tazinho.github.io/rsurveyjs/reference/dep_surveyjs_core.html</loc></url>
 <url><loc>https://tazinho.github.io/rsurveyjs/reference/index.html</loc></url>
 <url><loc>https://tazinho.github.io/rsurveyjs/reference/surveyjs-shiny.html</loc></url>
 <url><loc>https://tazinho.github.io/rsurveyjs/reference/surveyjs.html</loc></url>

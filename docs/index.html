@@ -124,6 +124,171 @@
 <hr>
 </div>
 <div class="section level2">
+<h2 id="comparison-of-surveyjs-and-rsurveyjs">Comparison of surveyjs and rsurveyjs<a class="anchor" aria-label="anchor" href="#comparison-of-surveyjs-and-rsurveyjs"></a>
+</h2>
+</div>
+<div class="section level2">
+<h2 id="bar_chart-feature-coverage-surveyjs-vs-rsurveyjs">📊 Feature Coverage: SurveyJS vs. rsurveyjs<a class="anchor" aria-label="anchor" href="#bar_chart-feature-coverage-surveyjs-vs-rsurveyjs"></a>
+</h2>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
+</colgroup>
+<thead><tr>
+<th>Feature</th>
+<th>SurveyJS (core lib)</th>
+<th>
+<code>rsurveyjs</code> Support</th>
+<th>Notes / Status</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>JSON-based survey schema</td>
+<td>✅</td>
+<td>✅</td>
+<td>Fully supported via <code>schema =</code>
+</td>
+</tr>
+<tr>
+<td>Multi-page surveys</td>
+<td>✅</td>
+<td>✅</td>
+<td>Handled via schema structure</td>
+</tr>
+<tr>
+<td>Question types (text, rating, dropdown, etc.)</td>
+<td>✅</td>
+<td>✅</td>
+<td>Full core support</td>
+</tr>
+<tr>
+<td>Validation rules</td>
+<td>✅</td>
+<td>✅</td>
+<td>Add via schema</td>
+</tr>
+<tr>
+<td>Conditional logic / visibility rules</td>
+<td>✅</td>
+<td>🟡 (basic)</td>
+<td>Logic works, no helper yet</td>
+</tr>
+<tr>
+<td>Themes (built-in)</td>
+<td>✅</td>
+<td>✅</td>
+<td>Use <code>theme = "..."</code>
+</td>
+</tr>
+<tr>
+<td>Theme variables (CSS vars)</td>
+<td>✅</td>
+<td>✅</td>
+<td>Via <code>theme_vars = list(...)</code>
+</td>
+</tr>
+<tr>
+<td>Custom CSS styling</td>
+<td>✅</td>
+<td>🟡</td>
+<td>Add via Shiny or HTML templates</td>
+</tr>
+<tr>
+<td>Localization / i18n</td>
+<td>✅</td>
+<td>🟡 (manual)</td>
+<td>Manual script setup required</td>
+</tr>
+<tr>
+<td>Read-only mode</td>
+<td>✅</td>
+<td>✅</td>
+<td>Via <code>readOnly = TRUE</code>
+</td>
+</tr>
+<tr>
+<td>Default values</td>
+<td>✅</td>
+<td>✅</td>
+<td>Use <code>data = list(...)</code>
+</td>
+</tr>
+<tr>
+<td>Live response tracking</td>
+<td>✅</td>
+<td>✅</td>
+<td>
+<code>input$&lt;id&gt;_data_live</code> in Shiny</td>
+</tr>
+<tr>
+<td>Completed result capture</td>
+<td>✅</td>
+<td>✅</td>
+<td>
+<code>input$&lt;id&gt;_data</code> in Shiny</td>
+</tr>
+<tr>
+<td>Dynamic update (R to JS)</td>
+<td>✅</td>
+<td>✅</td>
+<td>Use <code><a href="reference/updateSurveyjs.html">updateSurveyjs()</a></code>
+</td>
+</tr>
+<tr>
+<td>Survey events / hooks</td>
+<td>✅</td>
+<td>❌</td>
+<td>Not exposed (yet)</td>
+</tr>
+<tr>
+<td>File uploads</td>
+<td>✅</td>
+<td>❌</td>
+<td>Not integrated</td>
+</tr>
+<tr>
+<td>Custom widgets / question renderers</td>
+<td>✅</td>
+<td>❌</td>
+<td>JS-level customization only</td>
+</tr>
+<tr>
+<td>Survey Creator (visual editor)</td>
+<td>⚠️ Separate product</td>
+<td>❌</td>
+<td>Not included due to license</td>
+</tr>
+<tr>
+<td>PDF export</td>
+<td>✅ (via add-on)</td>
+<td>❌</td>
+<td>Not included</td>
+</tr>
+<tr>
+<td>Mobile responsiveness</td>
+<td>✅</td>
+<td>✅</td>
+<td>Inherited from SurveyJS</td>
+</tr>
+</tbody>
+</table>
+<div class="section level3">
+<h3 id="legend">Legend<a class="anchor" aria-label="anchor" href="#legend"></a>
+</h3>
+<ul>
+<li>✅ = Fully supported</li>
+<li>🟡 = Partially supported / works manually</li>
+<li>❌ = Not yet supported in <code>rsurveyjs</code>
+</li>
+<li>⚠️ = Separate licensing or package</li>
+</ul>
+<hr>
+</div>
+</div>
+<div class="section level2">
 <h2 id="identification_card-license">🪪 License<a class="anchor" aria-label="anchor" href="#identification_card-license"></a>
 </h2>
 <ul>

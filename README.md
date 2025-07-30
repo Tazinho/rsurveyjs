@@ -78,6 +78,42 @@ surveyjs(
 
 ------------------------------------------------------------------------
 
+## Comparison of surveyjs and rsurveyjs
+
+## 📊 Feature Coverage: SurveyJS vs. rsurveyjs
+
+| Feature | SurveyJS (core lib) | `rsurveyjs` Support | Notes / Status |
+|----|----|----|----|
+| JSON-based survey schema | ✅ | ✅ | Fully supported via `schema =` |
+| Multi-page surveys | ✅ | ✅ | Handled via schema structure |
+| Question types (text, rating, dropdown, etc.) | ✅ | ✅ | Full core support |
+| Validation rules | ✅ | ✅ | Add via schema |
+| Conditional logic / visibility rules | ✅ | 🟡 (basic) | Logic works, no helper yet |
+| Themes (built-in) | ✅ | ✅ | Use `theme = "..."` |
+| Theme variables (CSS vars) | ✅ | ✅ | Via `theme_vars = list(...)` |
+| Custom CSS styling | ✅ | 🟡 | Add via Shiny or HTML templates |
+| Localization / i18n | ✅ | 🟡 (manual) | Manual script setup required |
+| Read-only mode | ✅ | ✅ | Via `readOnly = TRUE` |
+| Default values | ✅ | ✅ | Use `data = list(...)` |
+| Live response tracking | ✅ | ✅ | `input$<id>_data_live` in Shiny |
+| Completed result capture | ✅ | ✅ | `input$<id>_data` in Shiny |
+| Dynamic update (R to JS) | ✅ | ✅ | Use `updateSurveyjs()` |
+| Survey events / hooks | ✅ | ❌ | Not exposed (yet) |
+| File uploads | ✅ | ❌ | Not integrated |
+| Custom widgets / question renderers | ✅ | ❌ | JS-level customization only |
+| Survey Creator (visual editor) | ⚠️ Separate product | ❌ | Not included due to license |
+| PDF export | ✅ (via add-on) | ❌ | Not included |
+| Mobile responsiveness | ✅ | ✅ | Inherited from SurveyJS |
+
+### Legend
+
+- ✅ = Fully supported
+- 🟡 = Partially supported / works manually
+- ❌ = Not yet supported in `rsurveyjs`
+- ⚠️ = Separate licensing or package
+
+------------------------------------------------------------------------
+
 ## 🪪 License
 
 - SurveyJS Form Library is licensed under MIT.

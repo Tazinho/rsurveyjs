@@ -34,3 +34,7 @@ articles:
   - title: Live Server Updates
     contents:
       - server-updates
+  - title: Examples
+    contents:
+      - examples
+
