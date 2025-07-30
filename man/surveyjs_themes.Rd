@@ -11,7 +11,6 @@ A character vector of theme names.
 }
 \description{
 Common built-in themes for use with the \code{theme} argument in \code{surveyjs()}.
-You can preview these in the \href{https://surveyjs.io/form-library/examples/appearance/}{SurveyJS Theme Demo}.
 }
 \examples{
 surveyjs_themes()

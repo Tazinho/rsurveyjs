@@ -3,42 +3,52 @@ HTMLWidgets.widget({
 
   type: "output",
 
-  factory: function(el, width, height) {
+  factory: function (el, width, height) {
     return {
-      renderValue: function(x) {
+      renderValue: function (x) {
         console.log("📦 SurveyJS renderValue() called");
 
-        // Reset container
-        el.innerHTML = '<div id="surveyjs-inner"></div>';
-        const container = el.querySelector("#surveyjs-inner");
+        const container = el;
+        const Survey = window.Survey;
+        const SurveyReact = window.SurveyReact;
 
-        // Apply modern theme class
-        el.classList.add("sv-root", "sv-root-modern");
-
-        // Debug info
-        console.log("SurveyJS schema:", x.schema);
-        console.log("React:", typeof React);
-        console.log("ReactDOM:", typeof ReactDOM);
-        console.log("Survey:", typeof Survey);
-        console.log("SurveyReact:", typeof SurveyReact);
-
-        // Check dependencies are loaded
-        if (
-          typeof React === "undefined" ||
-          typeof ReactDOM === "undefined" ||
-          typeof SurveyReact === "undefined" ||
-          typeof Survey === "undefined"
-        ) {
-          console.error("❌ One or more SurveyJS dependencies are missing.");
+        if (!Survey || !SurveyReact || !React || !ReactDOM) {
+          console.error("❌ Required libraries not loaded.");
           return;
         }
 
-        // Build model
+        console.log("SurveyJS schema:", x.schema);
+        console.log("React:", React);
+        console.log("ReactDOM:", ReactDOM);
+        console.log("Survey:", Survey);
+        console.log("SurveyReact:", SurveyReact);
+
+        // Set SurveyJS locale before creating the model
+        if (x.locale) {
+          Survey.settings.defaultLocale = x.locale;
+          console.log("🌐 Locale set to:", x.locale);
+        }
+
+        // ✅ Step 1: Create the survey model
         let surveyModel = new Survey.Model(x.schema);
-        console.log("SurveyJS model created:", surveyModel);
+        console.log("✅ SurveyJS model created:", surveyModel);
         console.log("All questions:", surveyModel.getAllQuestions());
 
-        // Defer rendering to ensure DOM is ready (important for Shiny)
+        // ✅ Step 2: Apply theme if available
+        if (x.theme && typeof SurveyTheme !== "undefined") {
+          const themeName = x.theme.toLowerCase();
+          const themeKey = Object.keys(SurveyTheme).find(key =>
+            key.toLowerCase() === themeName || key.toLowerCase().includes(themeName)
+          );
+          if (themeKey) {
+            console.log("🎨 Applying theme:", themeKey);
+            surveyModel.applyTheme(SurveyTheme[themeKey]);
+          } else {
+            console.warn("⚠️ Theme not found:", x.theme);
+          }
+        }
+
+        // ✅ Step 3: Defer rendering to ensure DOM is ready (important for Shiny)
         setTimeout(function () {
           ReactDOM.render(
             React.createElement(SurveyReact.Survey, {
@@ -52,8 +62,8 @@ HTMLWidgets.widget({
         }, 0);
       },
 
-      resize: function(width, height) {
-        // No-op: layout handled by SurveyJS
+      resize: function (width, height) {
+        // Optional: implement resizing logic if needed
       }
     };
   }
