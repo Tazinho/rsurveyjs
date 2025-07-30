@@ -146,7 +146,9 @@ surveyjs(
 
 ## Read-only modus from an iframe
 
-<iframe src="https://yourdomain.com/survey.html" width="100%" height="500" style="border:none;"></iframe>
+<iframe src="https://tazinho.github.io/rsurveyjs/example_read_only.html"
+        width="100%" height="450" frameborder="0" style="border: none;">
+</iframe>
 
 
 ## Read-only modus
