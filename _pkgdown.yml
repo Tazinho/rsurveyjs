@@ -14,6 +14,7 @@ navbar:
     github:
       icon: fab fa-github
       href: https://github.com/Tazinho/rsurveyjs
+      aria-label: "GitHub repository"
 
 reference:
   - title: Main Widget

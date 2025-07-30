@@ -144,28 +144,26 @@ This avoids applying potentially mismatched styles and helps keep behavior predi
 
 ## Known limitations so far
 
-* Read only doesnt seem to work yet
-* Default (data) values does not work yet
+* Custom widgets / question renderers	✅	❌	JS-level customization only
+* Mobile responsiveness	✅	✅	Inherited from SurveyJS
+* Debug the question types link in vignette examples
+* find out why the rendering in vignettes is so strange
+* It must be possible to embed surveys cleaner into web/vignettes
+* does the high level structure for vignettes make sense?
+* In surveyjs.js den Comment noch auflösen. You can add resizing suppert here if needed later
+* what are multi-locale surveys?
+* switch language on runtime (e.g. via dropown; supproted by surveyjs)
+* consistent argument naming e.g. theme_vars vs readOnly...
+* provide a shiny database example including testing with db-connection
 * Live results tracking example doesnt work yet
 * Completion example does not work or is not meaningful
 * Dynamic Update example does not work or is not meaningful
 * Handling: 📥 Input validation / error handling 📦 Embedding in other widgets or layouts *� Unit testing examples 🧩 Extending with custom question types
 * What about 
 * Survey events / hooks	✅	❌	Not exposed (yet)
-* File uploads	✅	❌	Not integrated
-* Custom widgets / question renderers	✅	❌	JS-level customization only
-* Survey Creator (visual editor)	⚠️ Separate product	❌	Not included due to license
-* PDF export	✅ (via add-on)	❌	Not included
-* Mobile responsiveness	✅	✅	Inherited from SurveyJS
-* Debug the question types link in vignette examples
-* find out why the rendering in vignettes is so strange
-* debug naming warnings in the command line when building vignettes and packagedown
-* It must be possible to embed surveys cleaner into web/vignettes
-* has surveyjs also quizzes or polls?
+* Provide file upload example - e.g. what to do then with that file?
+* PDF/Excel/CSV/JSON Export
 * tests for all examples are needed
-* does the high level structure for vignettes make sense?
-* In surveyjs.js den Comment noch auflösen. You can add resizing suppert here if needed later
-* what are multi-locale surveys?
 
 ---
 

@@ -4,7 +4,7 @@ output:
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{examples}
+  %\VignetteIndexEntry{Examples}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -125,4 +125,77 @@ surveyjs(
   ),
   locale = "fr"  # try "fr", "en", "es"
 )
+```
+
+## Data on load
+
+Provide initial/default values when rendering the form or load previously saved responses for editing/updating.
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Read-Only Preview",
+    questions = list(
+      list(type = "text", name = "name", title = "Your name?"),
+      list(type = "rating", name = "rating", title = "Rating?")
+    )
+  ),
+  data = list(name = "Taz", rating = 5)
+)
+```
+
+## Read-only modus from an iframe
+
+<iframe src="https://yourdomain.com/survey.html" width="100%" height="500" style="border:none;"></iframe>
+
+
+## Read-only modus
+
+In case you just want to display the form input, but make it non-edible just provide `readOnly = TRUE`.
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Read-Only Preview",
+    questions = list(
+      list(type = "text", name = "name", title = "Your name?"),
+      list(type = "rating", name = "rating", title = "Rating?")
+    )
+  ),
+  data = list(name = "Taz", rating = 5),
+  readOnly = TRUE
+)
+```
+
+## Quizzes
+
+You can easily create forms for quizzes.
+
+```{r}
+quiz_schema <- list(
+  title = "Quick Quiz",
+  showProgressBar = "top",
+  showCorrectAnswers = "true",
+  completedHtml = "<h4>You scored {correctAnswers} out of {questionCount}.</h4>",
+  pages = list(
+    list(elements = list(
+      list(
+        type = "radiogroup",
+        name = "capital",
+        title = "What is the capital of France?",
+        choices = c("Berlin", "Madrid", "Paris", "Rome"),
+        correctAnswer = "Paris"
+      ),
+      list(
+        type = "radiogroup",
+        name = "language",
+        title = "Which language is mostly spoken in Brazil?",
+        choices = c("Spanish", "Portuguese", "French"),
+        correctAnswer = "Portuguese"
+      )
+    ))
+  )
+)
+
+surveyjs(quiz_schema)
 ```

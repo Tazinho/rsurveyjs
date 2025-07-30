@@ -35,7 +35,7 @@
 <li class="nav-item"><a class="nav-link" href="articles/index.html">Articles</a></li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/Tazinho/rsurveyjs"><span class="fa fab fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/Tazinho/rsurveyjs" aria-label="GitHub repository"><span class="fa fab fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -47,7 +47,7 @@
 <div class="page-header"><h1 id="rsurveyjs">rsurveyjs<a class="anchor" aria-label="anchor" href="#rsurveyjs"></a>
 </h1></div>
 <p><a href="https://github.com/Tazinho/rsurveyjs/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/Tazinho/rsurveyjs/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://Tazinho.github.io/rsurveyjs/" class="external-link"><img src="https://github.com/Tazinho/rsurveyjs/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a> <a href="https://CRAN.R-project.org/package=rsurveyjs" class="external-link"><img src="https://www.r-pkg.org/badges/version/rsurveyjs" alt="CRAN status"></a> <img src="https://img.shields.io/github/last-commit/Tazinho/rsurveyjs.svg" alt="Last Commit"><a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a></p>
-<p>Minimal bindings for <a href="https://surveyjs.io/" class="external-link">SurveyJS v2.x</a> in R/Shiny.</p>
+<p>Minimal bindings for <a href="https://surveyjs.io/" class="external-link">SurveyJS v2.x</a> in R/Shiny. (<a href="https://app.unpkg.com/survey-core@2.2.6/files/i18n" class="external-link">See also</a>.)</p>
 <p><strong>rsurveyjs</strong> lets you render and interact with fully customizable surveys, forms and quizzes in Shiny apps using <a href="https://surveyjs.io/" class="external-link">SurveyJS</a> v2.</p>
 <hr>
 <div class="section level2">
@@ -137,6 +137,17 @@
 </ul>
 <p>While an unofficial JSON Schema exists, it’s not actively maintained. Adding deep validation in R would introduce unnecessary complexity, dependencies, and risk drift from the actual rendering engine.</p>
 <p>The philosophy of <code>rsurveyjs</code> is to keep things lightweight and trust the developer. If something breaks, it will break at render time — just as it would in a native SurveyJS project.</p>
+</div>
+<div class="section level3">
+<h3 id="only-apply-theme-variables-if-the-theme-is-valid">Only apply theme variables if the theme is valid<a class="anchor" aria-label="anchor" href="#only-apply-theme-variables-if-the-theme-is-valid"></a>
+</h3>
+<p>We intentionally apply custom <code>theme_vars</code> only when a valid <code>theme</code> is provided.</p>
+<p>This means:</p>
+<ul>
+<li><p>If the specified theme is invalid or misspelled, the survey falls back to the default visual style.</p></li>
+<li><p>In this case, any <code>theme_vars</code> are not applied, since they’re assumed to be designed for the intended <code>theme</code>.</p></li>
+</ul>
+<p>This avoids applying potentially mismatched styles and helps keep behavior predictable.</p>
 <hr>
 </div>
 </div>
@@ -309,13 +320,8 @@
 <h2 id="known-limitations-so-far">Known limitations so far<a class="anchor" aria-label="anchor" href="#known-limitations-so-far"></a>
 </h2>
 <ul>
-<li>Do i have full theme support via theme?</li>
-<li>Your themes didnt work (“contrast-dark”, “flat-light”, etc.) instead * ThreeDimensionalLightPanelless worked …</li>
-<li>theme_vars doesnt seem to do anything.</li>
-<li>Custom CSS styling doesnt seem to do anything</li>
-<li>Locale doesnt seem to do anything</li>
 <li>Read only doesnt seem to work yet</li>
-<li>Default values does not work yet</li>
+<li>Default (data) values does not work yet</li>
 <li>Live results tracking example doesnt work yet</li>
 <li>Completion example does not work or is not meaningful</li>
 <li>Dynamic Update example does not work or is not meaningful</li>
@@ -334,6 +340,8 @@
 <li>has surveyjs also quizzes or polls?</li>
 <li>tests for all examples are needed</li>
 <li>does the high level structure for vignettes make sense?</li>
+<li>In surveyjs.js den Comment noch auflösen. You can add resizing suppert here if needed later</li>
+<li>what are multi-locale surveys?</li>
 </ul>
 <hr>
 </div>

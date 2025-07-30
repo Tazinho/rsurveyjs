@@ -2,7 +2,7 @@
 title: "Survey Modes"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{survey-modes}
+  %\VignetteIndexEntry{Survey Modes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

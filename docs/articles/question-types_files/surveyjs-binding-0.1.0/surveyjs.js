@@ -16,20 +16,17 @@ HTMLWidgets.widget({
           return;
         }
 
+        console.log("Available locales:", Survey.localization.getLocales());
+        console.log("Current locale:", Survey.settings.defaultLocale);
+
+
         // Set the survey language (if one is given)
-        // This ensures the correct locale is used for text, buttons, etc.
-        // Set the global default
         if (x.locale) {
-          Survey.locale = x.locale;
+          Survey.settings.defaultLocale = x.locale;
         }
 
-        // Create the survey model from the schema
+        // Create the survey model from the scheema (the form structure)
         let surveyModel = new Survey.Model(x.schema);
-
-        // Set locale directly on the model (more reliable)
-        if (x.locale) {
-          surveyModel.locale = x.locale;
-        }
 
         // 🎨 Apply a theme (with optional overrides from theme_vars)
         if (x.theme && typeof SurveyTheme !== "undefined") {
