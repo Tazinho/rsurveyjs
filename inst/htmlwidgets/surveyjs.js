@@ -5,51 +5,52 @@ HTMLWidgets.widget({
   factory: function (el, width, height) {
     return {
       renderValue: function (x) {
-        // Set up container and needed libraries
+        // DOM container to render into
         const container = el;
+
+        // Grab needed libraries from global window
         const Survey = window.Survey;
         const SurveyReact = window.SurveyReact;
 
-        // Make sure everything we need is loaded
+        // Ensure required libs are available
         if (!Survey || !SurveyReact || !React || !ReactDOM) {
           console.error("❌ Required libraries not loaded.");
           return;
         }
 
-        // Set the survey language (if one is given)
-        // This ensures the correct locale is used for text, buttons, etc.
-        // Set the global default
+        // Set locale globally
         if (x.locale) {
           Survey.locale = x.locale;
         }
 
-        // Create the survey model from the schema
+        // Create survey model from schema
         let surveyModel = new Survey.Model(x.schema);
 
-        // Store the model instance on the DOM element for access from custom message handler
+        // Store model instance on DOM element for Shiny/custom access
         el.surveyModel = surveyModel;
 
-        // Set locale directly on the model (more reliable)
+        // Set locale on model too
         if (x.locale) {
           surveyModel.locale = x.locale;
         }
 
-        // Prefill data if provided
+        // Populate with initial data if provided
         if (x.data) {
           surveyModel.data = x.data;
         }
 
-        // Apply read-only mode if requested
+        // Enable read-only display mode
         if (x.readOnly === true) {
           surveyModel.mode = "display";
         }
 
-        // 🎨 Apply a theme (with optional overrides from theme_vars)
+        // 🎨 Theme application block (with optional overrides from theme_vars)
         if (x.theme && typeof SurveyTheme !== "undefined") {
           const themeName = x.theme.toLowerCase();
 
           const themeKey = Object.keys(SurveyTheme).find(key =>
-                                                           key.toLowerCase() === themeName || key.toLowerCase().includes(themeName)
+                                                           key.toLowerCase() === themeName ||
+                                                           key.toLowerCase().includes(themeName)
           );
 
           if (themeKey) {
@@ -81,15 +82,35 @@ HTMLWidgets.widget({
           }
         }
 
+        // Pre-render hook
+        if (x.pre_render_hook) {
+          try {
+            // Create and execute a function that takes the survey model as input
+            const hookFn = new Function("survey", x.pre_render_hook);
+            hookFn(surveyModel);
+          } catch (err) {
+            console.error("Error in pre_render_hook:", err);
+          }
+        }
+
         // Render the survey into the container
-        // We wait a tiny bit just to make sure everything is ready (especially helpful in Shiny)
+        // We wait a tiny bit just to make sure everything the DOM is ready (especially helpful in Shiny)
         setTimeout(function () {
           ReactDOM.render(
-            React.createElement(SurveyReact.Survey, {
-              model: surveyModel
-            }),
+            React.createElement(SurveyReact.Survey, { model: surveyModel }),
             container
           );
+
+          // Post-render hook
+          if (x.post_render_hook) {
+            try {
+              // Create and execute a function that takes el and x as inputs
+              const hookFn = new Function("el", "x", x.post_render_hook);
+              hookFn(el, x);
+            } catch (err) {
+              console.error("Error in post_render_hook:", err);
+            }
+          }
         }, 0);
       },
 

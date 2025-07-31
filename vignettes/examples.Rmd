@@ -203,3 +203,149 @@ quiz_schema <- list(
 
 surveyjs(quiz_schema)
 ```
+
+## Validation
+
+`surveyjs` offers a rich set of validators that you can naturally provide as part of the schema.
+
+```{r}
+surveyjs(schema = list(
+  title = "Comprehensive Validation Example",
+  pages = list(
+    list(
+      name = "personal_info",
+      elements = list(
+        list(
+          type = "text",
+          name = "name",
+          title = "Your Name",
+          isRequired = TRUE,
+          validators = list(
+            list(type = "text", minLength = 2)
+          )
+        ),
+        list(
+          type = "text",
+          name = "email",
+          title = "Email",
+          isRequired = TRUE,
+          validators = list(list(type = "email"))
+        ),
+        list(
+          type = "text",
+          name = "code",
+          title = "Enter your employee code (AAA-999)",
+          validators = list(
+            list(type = "regex", regex = "^[A-Z]{3}-[0-9]{3}$", text = "Must match AAA-999 format")
+          )
+        ),
+        list(
+          type = "text",
+          name = "age",
+          title = "Age",
+          inputType = "number",
+          validators = list(
+            list(type = "numeric", minValue = 18, maxValue = 99)
+          )
+        )
+      )
+    )
+  )
+))
+```
+
+## Conditional Logic
+
+And of course surveyjs provides also conditional logic.
+
+```{r}
+surveyjs(schema = list(
+  title = "Conditional Logic Example",
+  questions = list(
+    list(
+      type = "radiogroup",
+      name = "satisfied",
+      title = "Are you satisfied?",
+      choices = list("Yes", "No")
+    ),
+    list(
+      type = "comment",
+      name = "whyNot",
+      title = "Why not?",
+      visibleIf = "{satisfied} = 'No'"
+    )
+  )
+))
+```
+
+## Pre- and Post-Render Hooks (Advanced)
+
+**Pre-render hooks** are JavaScript snippets that run **before** the form is displayed. Use them to attach behavior like validation, event listeners, or model logic.
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Nickname Check",
+    questions = list(
+      list(type = "text", name = "nickname", title = "Enter a nickname")
+    )
+  ),
+  pre_render_hook = "
+    survey.onValidateQuestion.add(function(sender, options) {
+      if (options.name === 'nickname' && options.value.length < 4) {
+        options.error = 'Too short';
+      }
+    });
+  "
+)
+```
+
+**Post-render hooks** run **after** the form has been rendered on screen. Use them to style the container, inspect the DOM, or log information.
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Style Test",
+    questions = list(
+      list(type = "text", name = "name", title = "Name")
+    )
+  ),
+  post_render_hook = "
+    el.style.border = '2px dashed #888';
+    console.log('Survey rendered with schema:', x.schema);
+  "
+)
+```
+
+## SurveyJS Event Listeners (Advanced)
+
+SurveyJS supports many event listeners to let you react to user input, validation, and survey lifecycle changes.
+
+Event listeners are attached inside the `pre_render_hook`. You can use them to:
+
+* React to value changes (`onValueChanged`)
+
+* Add custom validation (`onValidateQuestion`)
+
+* Log when the survey is completed (`onComplete`), and more.
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Track input",
+    questions = list(
+      list(type = "text", name = "email", title = "Enter your email")
+    )
+  ),
+  pre_render_hook = "
+    survey.onValueChanged.add(function(sender, options) {
+      if (options.name === 'email') {
+        console.log('User typed email:', options.value);
+      }
+    });
+  "
+)
+```
+
+For a full list of available events, see the
+[SurveyJS Event Documentation](https://surveyjs.io/form-library/documentation/api-reference/survey-data-model#events).

@@ -161,9 +161,8 @@ behavior predictable.
 
 ## Known limitations so far
 
+- work over vignettes
 - Custom widgets / question renderers ✅ ❌ JS-level customization only
-- Mobile responsiveness ✅ ✅ Inherited from SurveyJS
-- Debug the question types link in vignette examples
 - does the high level structure for vignettes make sense?
 - In surveyjs.js den Comment noch auflösen. You can add resizing suppert
   here if needed later
@@ -182,6 +181,72 @@ behavior predictable.
 - Provide file upload example - e.g. what to do then with that file?
 - PDF/Excel/CSV/JSON Export
 - tests for all examples are needed
+
+1.  Shiny Integration (when you’re ready)
+
+Since you’re wrapping a JS form library, SurveyJS is a perfect fit for
+dynamic Shiny apps. When you revisit this:
+
+    Expose survey responses as input$<id>_data and input$<id>_data_live
+
+    Implement onComplete → Shiny.setInputValue(...)
+
+    Optionally: reactive resetting or dynamic schema updates
+
+Let me know when you’re ready — I can help scaffold that. 2. Advanced
+Schema Helpers (R-side ergonomics)
+
+Help R users generate common schema fragments with minimal boilerplate.
+E.g.,
+
+surveyjs_text(“email”, title = “Your Email”, required = TRUE, validator
+= “email”) surveyjs_number(“age”, min = 18, max = 99)
+
+These small helpers can:
+
+    Make your API more user-friendly
+
+    Standardize common patterns
+
+    Encourage best practices
+
+This also reduces the risk of users writing broken schemas manually. 3.
+Validation Utilities in R
+
+You now support JS-based validators. You could also expose an R-side DSL
+to help define them:
+
+surveyjs_validator(“nickname”, min_length = 4)
+
+This would output the correct pre_render_hook string for that validator,
+e.g.,
+
+survey.onValidateQuestion.add(function(sender, options) { if
+(options.name === ‘nickname’ && options.value.length \< 4) {
+options.error = ‘Too short’; } });
+
+This bridges ease-of-use with customizability. 4. Theme Builder / Survey
+Style Options
+
+Your theme and theme_vars support is already great.
+
+You could:
+
+    Offer a helper like surveyjs_theme_vars(primary = "#abc", text = "#333")
+
+    Document how to preview and customize themes
+
+    Possibly add a live theme preview if/when you build a Shiny demo
+
+5.  Minimal Test Suite / Examples Gallery
+
+Now is a good time to:
+
+    Create a tests/ folder (if not yet done)
+
+    Add snapshot-based examples using {testthat} or {vdiffr}
+
+    Or: create an "Examples Gallery" vignette with real use cases
 
 ------------------------------------------------------------------------
 
