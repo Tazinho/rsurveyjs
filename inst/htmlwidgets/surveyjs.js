@@ -119,33 +119,68 @@ HTMLWidgets.widget({
       }
     };
 
-    // If running in Shiny, add a custom message handler to update form data
+    // If running in Shiny, enable custom message handlers for server-to-client control
     if (HTMLWidgets.shinyMode) {
+
+      // 🟡 Update form data from R (e.g., for pre-filling answers)
       Shiny.addCustomMessageHandler("surveyjs-data", function(message) {
         const el = document.getElementById(message.el);
         if (el && el.surveyModel && message.data) {
           el.surveyModel.data = message.data;
         }
-    });
+      });
 
-    Shiny.addCustomMessageHandler("surveyjs-mode", function(message) {
-      const el = document.getElementById(message.el);
-      if (el && el.surveyModel && message.mode) {
-        el.surveyModel.mode = message.mode;
-      }
-    });
+      // 🟡 Change the mode (edit/display/readonly)
+      Shiny.addCustomMessageHandler("surveyjs-mode", function(message) {
+        const el = document.getElementById(message.el);
+        if (el && el.surveyModel && message.mode) {
+          el.surveyModel.mode = message.mode;
+        }
+      });
 
-    Shiny.addCustomMessageHandler("surveyjs-theme", function(message) {
-      const el = document.getElementById(message.el);
-      if (el && el.surveyModel && message.theme && typeof SurveyTheme !== "undefined") {
-        const themeKey = Object.keys(SurveyTheme).find(key =>
-        key.toLowerCase() === message.theme.toLowerCase()
-      );
-      if (themeKey) {
-        el.surveyModel.applyTheme(SurveyTheme[themeKey]);
-      }
-    }  });
+      // 🟡 Change the survey theme (must match known themes)
+      Shiny.addCustomMessageHandler("surveyjs-theme", function(message) {
+        const el = document.getElementById(message.el);
+        if (el && el.surveyModel && message.theme && typeof SurveyTheme !== "undefined") {
+          const themeKey = Object.keys(SurveyTheme).find(key =>
+            key.toLowerCase() === message.theme.toLowerCase()
+          );
+          if (themeKey) {
+            el.surveyModel.applyTheme(SurveyTheme[themeKey]);
+          }
+        }
+      });
+
+      // ✅ Clear/reset the survey
+      Shiny.addCustomMessageHandler("surveyjs-clear", function(message) {
+        const el = document.getElementById(message.el);
+        if (el && el.surveyModel) {
+          el.surveyModel.clear();
+        }
+      });
+
+      // ✅ Complete the survey programmatically
+      Shiny.addCustomMessageHandler("surveyjs-complete", function(message) {
+        const el = document.getElementById(message.el);
+        if (el && el.surveyModel) {
+          el.surveyModel.completeLastPage();
+        }
+      });
+
+      // ✅ OPTIONAL: Focus the first question (for accessibility / UX polish)
+      Shiny.addCustomMessageHandler("surveyjs-focus", function(message) {
+        const el = document.getElementById(message.el);
+        if (el && el.surveyModel) {
+          el.surveyModel.focusFirstQuestion();
+        }
+      });
+
     }
 
   }
 });
+
+
+
+
+

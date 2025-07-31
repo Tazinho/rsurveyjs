@@ -35,9 +35,11 @@ surveyjs(
 
 \item{locale}{Language code (e.g. \code{"en"}, \code{"de"})}
 
-\item{pre_render_hook}{JavaScript code as a string to run before render.}
+\item{pre_render_hook}{JavaScript code (as a string) to run before rendering the survey.
+Supply only the body of a JavaScript function — do not wrap it in \code{function(...) {}}.}
 
-\item{post_render_hook}{JavaScript code as a string to run after render.}
+\item{post_render_hook}{JavaScript code (as a string) to run after the survey is rendered.
+Also supply only the body of a JavaScript function — not a full \code{function(...) {}} wrapper.}
 
 \item{width, height}{Optional size specs.}
 
