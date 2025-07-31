@@ -1,0 +1,13 @@
+pandoc: '3.4'
+pkgdown: 2.1.3
+pkgdown_sha: ~
+articles:
+  examples: examples.html
+  getting-started: getting-started.html
+  question-types: question-types.html
+  server-updates: server-updates.html
+  survey-modes: survey-modes.html
+last_built: 2025-07-31T16:56Z
+urls:
+  reference: https://tazinho.github.io/rsurveyjs/reference
+  article: https://tazinho.github.io/rsurveyjs/articles
