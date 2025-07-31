@@ -23,7 +23,6 @@ HTMLWidgets.widget({
           Survey.locale = x.locale;
         }
 
-
         // Create the survey model from the schema
         let surveyModel = new Survey.Model(x.schema);
 

@@ -16,17 +16,33 @@ HTMLWidgets.widget({
           return;
         }
 
-        console.log("Available locales:", Survey.localization.getLocales());
-        console.log("Current locale:", Survey.settings.defaultLocale);
-
-
         // Set the survey language (if one is given)
+        // This ensures the correct locale is used for text, buttons, etc.
+        // Set the global default
         if (x.locale) {
-          Survey.settings.defaultLocale = x.locale;
+          Survey.locale = x.locale;
         }
 
-        // Create the survey model from the scheema (the form structure)
+        // Create the survey model from the schema
         let surveyModel = new Survey.Model(x.schema);
+
+        // Store the model instance on the DOM element for access from custom message handler
+        el.surveyModel = surveyModel;
+
+        // Set locale directly on the model (more reliable)
+        if (x.locale) {
+          surveyModel.locale = x.locale;
+        }
+
+        // Prefill data if provided
+        if (x.data) {
+          surveyModel.data = x.data;
+        }
+
+        // Apply read-only mode if requested
+        if (x.readOnly === true) {
+          surveyModel.mode = "display";
+        }
 
         // 🎨 Apply a theme (with optional overrides from theme_vars)
         if (x.theme && typeof SurveyTheme !== "undefined") {
@@ -81,5 +97,34 @@ HTMLWidgets.widget({
         // You can add resizing suppert here if needed later
       }
     };
+
+    // If running in Shiny, add a custom message handler to update form data
+    if (HTMLWidgets.shinyMode) {
+      Shiny.addCustomMessageHandler("surveyjs-data", function(message) {
+        const el = document.getElementById(message.el);
+        if (el && el.surveyModel && message.data) {
+          el.surveyModel.data = message.data;
+        }
+    });
+
+    Shiny.addCustomMessageHandler("surveyjs-mode", function(message) {
+      const el = document.getElementById(message.el);
+      if (el && el.surveyModel && message.mode) {
+        el.surveyModel.mode = message.mode;
+      }
+    });
+
+    Shiny.addCustomMessageHandler("surveyjs-theme", function(message) {
+      const el = document.getElementById(message.el);
+      if (el && el.surveyModel && message.theme && typeof SurveyTheme !== "undefined") {
+        const themeKey = Object.keys(SurveyTheme).find(key =>
+        key.toLowerCase() === message.theme.toLowerCase()
+      );
+      if (themeKey) {
+        el.surveyModel.applyTheme(SurveyTheme[themeKey]);
+      }
+    }  });
+    }
+
   }
 });

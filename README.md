@@ -164,8 +164,6 @@ behavior predictable.
 - Custom widgets / question renderers ✅ ❌ JS-level customization only
 - Mobile responsiveness ✅ ✅ Inherited from SurveyJS
 - Debug the question types link in vignette examples
-- find out why the rendering in vignettes is so strange
-- It must be possible to embed surveys cleaner into web/vignettes
 - does the high level structure for vignettes make sense?
 - In surveyjs.js den Comment noch auflösen. You can add resizing suppert
   here if needed later

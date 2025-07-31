@@ -10,10 +10,16 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  toggle = "hide"
+  comment = "#>", 
+  fig.width = 8
 )
+
 library(rsurveyjs)
+original_surveyjs <- get("surveyjs", envir = asNamespace("rsurveyjs"))
+
+surveyjs <- function(...) {
+  original_surveyjs(..., width = "100%", height = "100%")
+}
 ```
 
 # Survey Modes in rsurveyjs

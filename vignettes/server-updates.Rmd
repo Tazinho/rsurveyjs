@@ -13,10 +13,16 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>", 
+  fig.width = 8
 )
-library(rsurveyjs)
+
 library(shiny)
+library(rsurveyjs)
+original_surveyjs <- surveyjs
+surveyjs <- function(...) {
+  original_surveyjs(..., width = "100%", height = "100%")
+}
 ```
 
 ## Live Data and Server-Side Updates

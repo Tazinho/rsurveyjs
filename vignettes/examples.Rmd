@@ -12,9 +12,15 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>", 
+  fig.width = 8
 )
+
 library(rsurveyjs)
+original_surveyjs <- surveyjs
+surveyjs <- function(...) {
+  original_surveyjs(..., width = "100%", height = "100%")
+}
 ```
 
 ## Basic usage (JSON-style)
@@ -143,13 +149,6 @@ surveyjs(
   data = list(name = "Taz", rating = 5)
 )
 ```
-
-## Read-only modus from an iframe
-
-<iframe src="https://tazinho.github.io/rsurveyjs/example_read_only.html"
-        width="100%" height="450" frameborder="0" style="border: none;">
-</iframe>
-
 
 ## Read-only modus
 
