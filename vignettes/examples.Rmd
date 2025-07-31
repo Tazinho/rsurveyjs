@@ -22,6 +22,10 @@ surveyjs <- function(...) {
 }
 ```
 
+## Test Section
+
+Lorem Ipum ..
+
 ## Basic usage (JSON-style)
 
 To render a survey, pass a JSON-compatible list to `surveyjs()`:
