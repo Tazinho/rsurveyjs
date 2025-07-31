@@ -40,8 +40,8 @@ jobs:
           rm -rf docs
 
       - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = FALSE, install = TRUE)
-        shell: Rscript {0}
+        run: |
+          Rscript -e 'pkgdown::build_site_github_pages(new_process = FALSE, install = TRUE)'
 
       - name: Debug: List rendered article files
         run: ls -lR docs/articles
