@@ -70,7 +70,7 @@ surveyjs(schema = list(
         type = "dropdown",
         name = "country",
         title = "Select country",
-        choices = list("Germany", "France", "USA")
+        choices = list("Germany", "France", "USA" )
       )
     )
   ))
