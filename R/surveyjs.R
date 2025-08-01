@@ -12,39 +12,48 @@
 #' @param schema List or JSON string; must follow
 #'   [SurveyJS JSON Schema](https://surveyjs.io/form-library/documentation/json-schema).
 #' @param data Initial values.
-#' @param readOnly Render in read-only mode.
+#' @param read_only Render in read-only mode.
 #' @param live Live update responses?
 #' @param theme Theme name.
 #' @param theme_vars Named list of CSS variables (e.g. `--sjs-primary-backcolor`).
 #' @param locale Language code (e.g. `"en"`, `"de"`)
-#' @param width,height Optional CSS size or number.
-#' @param elementId Optional element id for the container.
 #' @param pre_render_hook JavaScript code (as a string) to run before rendering the survey.
 #'   Supply only the body of a JavaScript function — do not wrap it in `function(...) {}`.
 #' @param post_render_hook JavaScript code (as a string) to run after the survey is rendered.
 #'   Also supply only the body of a JavaScript function — not a full `function(...) {}` wrapper.
-#' @param width,height Optional size specs.
-#' @param elementId Optional element id for the container.
+#' @param complete_hook JavaScript function body to run on survey completion
+#' @param width,height Optional CSS size or number.
+#' @param element_id Optional element ID. Leave NULL in Shiny (it's auto-assigned).
+#' @details
+#' The SurveyJS widget is responsive by default. The `resize()` method is a placeholder
+#' and does not implement manual resizing logic, as SurveyJS adapts to container size
+#' via CSS flexbox rules.
 #' @export
-surveyjs <- function(schema, data = NULL, readOnly = FALSE, live = FALSE,
-                       theme = "DefaultLight", theme_vars = NULL, locale = NULL,
-                       pre_render_hook = NULL, post_render_hook = NULL,
-                       width = NULL, height = NULL, elementId = NULL) {
+surveyjs <- function(schema, data = NULL, read_only = FALSE, live = FALSE,
+                     theme = "DefaultLight", theme_vars = NULL, locale = NULL,
+                     pre_render_hook = NULL, post_render_hook = NULL,
+                     complete_hook = NULL, width = NULL, height = NULL,
+                     element_id = NULL) {
 
-    schema_json <- if (is.character(schema)) schema
-    else jsonlite::toJSON(schema, auto_unbox = TRUE)
+  if (shiny::isRunning() && !is.null(element_id)) {
+    warning("In Shiny, `element_id` is ignored. The widget ID is automatically set from the output ID in `surveyjsOutput(id)`.")
+  }
 
+  schema_json <- if (is.character(schema)) schema
+  else jsonlite::toJSON(schema, auto_unbox = TRUE)
 
   x <- list(
     schema            = schema_json,
     data              = data,
-    readOnly          = readOnly,
+    read_only         = read_only,
     live              = live,
     theme             = theme,
     theme_vars        = theme_vars,
     locale            = locale,
     pre_render_hook   = pre_render_hook,
-    post_render_hook  = post_render_hook
+    post_render_hook  = post_render_hook,
+    complete_hook     = complete_hook,
+    element_id        = element_id
   )
 
   htmlwidgets::createWidget(
@@ -52,8 +61,8 @@ surveyjs <- function(schema, data = NULL, readOnly = FALSE, live = FALSE,
     x = x,
     width = width,
     height = height,
+    elementId = element_id,
     package = "rsurveyjs",
-    elementId = elementId,
     dependencies = list(
       dep_react(),
       dep_reactdom(),

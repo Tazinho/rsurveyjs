@@ -7,7 +7,7 @@
 #' @param session Shiny session object.
 #' @param id Output ID used in `surveyjsOutput()`.
 #' @param data Optional named list of answers to set.
-#' @param readOnly Optional logical; toggle read-only mode.
+#' @param read_only Optional logical; toggle read-only mode.
 #' @param schema Optional new schema (list or JSON string).
 #' @param theme Optional theme name (e.g. `"modern"`).
 #' @param locale Optional locale code (e.g. `"en"`, `"de"`).
@@ -20,19 +20,22 @@
 #'
 #' @export
 updateSurveyjs <- function(session, id,
-                           data     = NULL,
-                           readOnly = NULL,
-                           schema   = NULL,
-                           theme    = NULL,
-                           locale   = NULL) {
+                           data = NULL, read_only = NULL, schema = NULL,
+                           theme = NULL, locale = NULL) {
 
-  payload <- list(
-    id = id,
-    data = data,
-    readOnly = readOnly,
-    schema = if (!is.null(schema)) if (is.character(schema)) schema else jsonlite::toJSON(schema, auto_unbox = TRUE),
-    theme  = theme,
-    locale = locale
-  )
-  session$sendCustomMessage("rsurveyjs:update", payload)
+  if (!is.null(data)) {
+    session$sendCustomMessage("surveyjs-data", list(el = id, data = data))
+  }
+  if (!is.null(read_only)) {
+    session$sendCustomMessage("surveyjs-mode", list(el = id, mode = if (read_only) "display" else "edit"))
+  }
+  if (!is.null(schema)) {
+    session$sendCustomMessage("surveyjs-schema", list(el = id, schema = schema))
+  }
+  if (!is.null(theme)) {
+    session$sendCustomMessage("surveyjs-theme", list(el = id, theme = theme))
+  }
+  if (!is.null(locale)) {
+    session$sendCustomMessage("surveyjs-locale", list(el = id, locale = locale))
+  }
 }

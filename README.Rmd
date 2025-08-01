@@ -144,24 +144,22 @@ This avoids applying potentially mismatched styles and helps keep behavior predi
 
 ## Known limitations so far
 
-* consistent argument naming e.g. theme_vars vs readOnly...> snake_case
-* work over vignettes (including editing, consistency, cross-linking, examples)
-* does the high level structure for vignettes make sense?
-* what are multi-locale surveys?
-* switch language on runtime (e.g. via dropown; supproted by surveyjs) (could add a message handler like "surveyjs-locale" - not yet done)
 * Live results tracking example doesnt work yet > work with onValueChanged > Shiny.setInputValue(...)
 * Completion example does not work or is not meaningful > Covered by onComplete + input&<id>_data
 * Dynamic Update example does not work or is not meaningful
-* tests/unit tests for all examples are needed
 * error handling
-* Embedding in other widgets or layouts
-* Extending with custom question types
-* Custom widgets / question renderers (needs js-level support, potentially surveyjs plugin, not sure if possible)
 * Provide file upload example - e.g. what to do then with that file?
 * provide a shiny database example including testing with db-connection
 
-* In surveyjs.js den Comment noch auflösen. You can add resizing suppert here if needed later
+* Custom widgets / question renderers (needs js-level support, potentially surveyjs plugin, not sure if possible)
+* Extending with custom question types
+* Embedding in other widgets or layouts
+* tests/unit tests for all examples are needed
+* switch language on runtime (e.g. via dropown; supproted by surveyjs) (could add a message handler like "surveyjs-locale" - not yet done)
+* what are multi-locale surveys?
+* does the high level structure for vignettes make sense?
 * PDF/Excel/CSV/JSON Export
+* work over vignettes (including editing, consistency, cross-linking, examples)
 
 * DSLs e.g. surveyjs_text, surveyjs_number, .. to user friendly, standardizing, encourage best practices
 * validation utilities or DSLs like survejs_validator would output the correct pre_render_hook string for that validator, e.g.,
@@ -256,35 +254,35 @@ Shiny.addCustomMessageHandler("surveyjs-clear", function(message) {
   }
 });
 
-In R:
+<!-- In R: -->
 
-session$sendCustomMessage("surveyjs-clear", list(el = "survey_id"))
+<!-- session$sendCustomMessage("surveyjs-clear", list(el = "survey_id")) -->
 
-✅ Events to Add for Shiny Interop
-Event	Purpose	When to Use
-onComplete	Send results to Shiny when survey is done	Capture responses in server
-onValueChanged	Live-update an input binding	Track form progress reactively
-Example: Live updates
+<!-- ✅ Events to Add for Shiny Interop -->
+<!-- Event	Purpose	When to Use -->
+<!-- onComplete	Send results to Shiny when survey is done	Capture responses in server -->
+<!-- onValueChanged	Live-update an input binding	Track form progress reactively -->
+<!-- Example: Live updates -->
 
-survey.onValueChanged.add(function(sender, options) {
-  Shiny.setInputValue(el.id + "_data_live", sender.data, { priority: "event" });
-});
+<!-- survey.onValueChanged.add(function(sender, options) { -->
+<!--   Shiny.setInputValue(el.id + "_data_live", sender.data, { priority: "event" }); -->
+<!-- }); -->
 
-And final submission:
+<!-- And final submission: -->
 
-survey.onComplete.add(function(sender) {
-  Shiny.setInputValue(el.id + "_data", sender.data);
-});
+<!-- survey.onComplete.add(function(sender) { -->
+<!--   Shiny.setInputValue(el.id + "_data", sender.data); -->
+<!-- }); -->
 
-Then in R:
+<!-- Then in R: -->
 
-input$survey_id_data      # final completed data
-input$survey_id_data_live # updated continuously
+<!-- input$survey_id_data      # final completed data -->
+<!-- input$survey_id_data_live # updated continuously -->
 
 
-    onComplete, onValueChanged
+    <!-- onComplete, onValueChanged -->
 
-    Maybe nextPage()/prevPage() for custom buttons
+    <!-- Maybe nextPage()/prevPage() for custom buttons -->
 
 
 ---

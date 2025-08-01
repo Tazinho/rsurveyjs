@@ -6,7 +6,7 @@
 #' @return An [htmltools::htmlDependency] for SurveyJS v2.2.6
 #' @importFrom htmltools htmlDependency
 #' @keywords internal
-#’ @noRd
+#' @noRd
 dep_react <- function() {
   htmltools::htmlDependency(
     name = "react",
@@ -22,7 +22,7 @@ dep_react <- function() {
 #' @return An [htmltools::htmlDependency] for SurveyJS v2.2.6
 #' @importFrom htmltools htmlDependency
 #' @keywords internal
-#’ @noRd
+#' @noRd
 dep_reactdom <- function() {
   htmltools::htmlDependency(
     name = "react-dom",
@@ -38,7 +38,7 @@ dep_reactdom <- function() {
 #' @return An [htmltools::htmlDependency] for SurveyJS v2.2.6
 #' @importFrom htmltools htmlDependency
 #' @keywords internal
-#’ @noRd
+#' @noRd
 dep_surveyjs_core <- function() {
   htmltools::htmlDependency(
     name = "surveyjs", version = "2.2.6",

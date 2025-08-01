@@ -320,25 +320,77 @@
 <h2 id="known-limitations-so-far">Known limitations so far<a class="anchor" aria-label="anchor" href="#known-limitations-so-far"></a>
 </h2>
 <ul>
-<li>Custom widgets / question renderers ✅ ❌ JS-level customization only</li>
-<li>Mobile responsiveness ✅ ✅ Inherited from SurveyJS</li>
-<li>Debug the question types link in vignette examples</li>
-<li>does the high level structure for vignettes make sense?</li>
-<li>In surveyjs.js den Comment noch auflösen. You can add resizing suppert here if needed later</li>
-<li>what are multi-locale surveys?</li>
-<li>switch language on runtime (e.g. via dropown; supproted by surveyjs)</li>
-<li>consistent argument naming e.g. theme_vars vs readOnly…</li>
-<li>provide a shiny database example including testing with db-connection</li>
-<li>Live results tracking example doesnt work yet</li>
-<li>Completion example does not work or is not meaningful</li>
-<li>Dynamic Update example does not work or is not meaningful</li>
-<li>Handling: 📥 Input validation / error handling 📦 Embedding in other widgets or layouts *� Unit testing examples 🧩 Extending with custom question types</li>
-<li>What about</li>
-<li>Survey events / hooks ✅ ❌ Not exposed (yet)</li>
-<li>Provide file upload example - e.g. what to do then with that file?</li>
-<li>PDF/Excel/CSV/JSON Export</li>
-<li>tests for all examples are needed</li>
+<li><p>Live results tracking example doesnt work yet &gt; work with onValueChanged &gt; Shiny.setInputValue(…)</p></li>
+<li><p>Completion example does not work or is not meaningful &gt; Covered by onComplete + input&amp;<id>_data</id></p></li>
+<li><p>Dynamic Update example does not work or is not meaningful</p></li>
+<li><p>error handling</p></li>
+<li><p>Provide file upload example - e.g. what to do then with that file?</p></li>
+<li><p>provide a shiny database example including testing with db-connection</p></li>
+<li><p>Custom widgets / question renderers (needs js-level support, potentially surveyjs plugin, not sure if possible)</p></li>
+<li><p>Extending with custom question types</p></li>
+<li><p>Embedding in other widgets or layouts</p></li>
+<li><p>tests/unit tests for all examples are needed</p></li>
+<li><p>switch language on runtime (e.g. via dropown; supproted by surveyjs) (could add a message handler like “surveyjs-locale” - not yet done)</p></li>
+<li><p>what are multi-locale surveys?</p></li>
+<li><p>does the high level structure for vignettes make sense?</p></li>
+<li><p>PDF/Excel/CSV/JSON Export</p></li>
+<li><p>work over vignettes (including editing, consistency, cross-linking, examples)</p></li>
+<li><p>DSLs e.g. surveyjs_text, surveyjs_number, .. to user friendly, standardizing, encourage best practices</p></li>
+<li><p>validation utilities or DSLs like survejs_validator would output the correct pre_render_hook string for that validator, e.g.,</p></li>
 </ul>
+<p>survey.onValidateQuestion.add(function(sender, options) { if (options.name === ‘nickname’ &amp;&amp; options.value.length &lt; 4) { options.error = ‘Too short’; } });</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Theme Builder / Survey Style Options</li>
+</ol>
+<p>Your theme and theme_vars support is already great.</p>
+<p>You could:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>Offer a helper like <span class="fu">surveyjs_theme_vars</span>(<span class="at">primary =</span> <span class="st">"#abc"</span>, <span class="at">text =</span> <span class="st">"#333"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>Document how to preview and customize themes</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>Possibly add a live theme preview <span class="cf">if</span><span class="sc">/</span>when you build a Shiny demo</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Minimal Test Suite / Examples Gallery</li>
+</ol>
+<p>Now is a good time to:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>Create a tests<span class="sc">/</span> <span class="fu">folder</span> (<span class="cf">if</span> not yet done)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>Add snapshot<span class="sc">-</span>based examples using {testthat} or {vdiffr}</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>Or<span class="sc">:</span> create an <span class="st">"Examples Gallery"</span> vignette with real use cases</span></code></pre></div>
+<p>What You Could Consider Adding — Carefully 1. Expose Specific Model Methods via Shiny</p>
+<p>Useful for reactive apps: Method Use Case clear() Reset the survey completeLastPage() Submit programmatically isCompleted Check state</p>
+<p>→ Suggestion: Add Shiny message handlers like “surveyjs-clear” or “surveyjs-complete” that call these methods.</p>
+<p>You already support surveyModel via el.surveyModel, so this is a natural next step when you do Shiny. 2. Advanced Properties (Optional)</p>
+<p>These are power-user settings in x, like:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>showCompletedPage</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>showNavigationButtons</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>questionTitleLocation</span></code></pre></div>
+<p>You can allow users to pass extra SurveyJS config like:</p>
+<p>surveyjs(…, config = list(showNavigationButtons = FALSE))</p>
+<p>And then merge x.config into the Survey model before rendering.</p>
+<p>But don’t add these until a real user needs them. 3. Events like onComplete</p>
+<p>This would allow sending survey data to Shiny or logging it.</p>
+<p>If you don’t support Shiny yet, no need to expose it now. When you do, you can add:</p>
+<p>survey.onComplete.add(function(sender) { Shiny.setInputValue(el.id + “_data”, sender.data); });</p>
+<p>Great — here’s a focused checklist of SurveyJS methods and events that are actually useful when you start integrating with Shiny (or any reactive R environment).</p>
+<p>These are worth supporting through custom message handlers or exposing in the R API when you need interactivity like resetting surveys, submitting programmatically, or listening for completion. ✅ Methods to Consider (Call from Shiny via session$sendCustomMessage()) Method What It Does When to Use in Shiny survey.clear() Clears all answers Reset button or restart flow survey.completeLastPage() Triggers completion (like clicking “Complete”) Auto-submit a survey from R/JS survey.focusFirstQuestion() Focus the first input field Usability: keyboard-first interfaces survey.nextPage() Programmatically move to next page Custom navigation buttons survey.prevPage() Go to previous page Custom “Back” button survey.getQuestionByName(“x”) Access question programmatically For advanced UI control or overrides Example: Call clear() from Shiny</p>
+<p>In JS (you already expose el.surveyModel):</p>
+<p>Shiny.addCustomMessageHandler(“surveyjs-clear”, function(message) { const el = document.getElementById(message.el); if (el &amp;&amp; el.surveyModel) { el.surveyModel.clear(); } });</p>
+<p>In R:</p>
+<p>session$sendCustomMessage(“surveyjs-clear”, list(el = “survey_id”))</p>
+<p>✅ Events to Add for Shiny Interop Event Purpose When to Use onComplete Send results to Shiny when survey is done Capture responses in server onValueChanged Live-update an input binding Track form progress reactively Example: Live updates</p>
+<p>survey.onValueChanged.add(function(sender, options) { Shiny.setInputValue(el.id + “_data_live”, sender.data, { priority: “event” }); });</p>
+<p>And final submission:</p>
+<p>survey.onComplete.add(function(sender) { Shiny.setInputValue(el.id + “_data”, sender.data); });</p>
+<p>Then in R:</p>
+<p>input<span class="math inline">$survey_id_data      # final completed data
+input$</span>survey_id_data_live # updated continuously</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>onComplete, onValueChanged</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>Maybe <span class="fu">nextPage</span>()<span class="sc">/</span><span class="fu">prevPage</span>() <span class="cf">for</span> custom buttons</span></code></pre></div>
 <hr>
 </div>
 <div class="section level2">

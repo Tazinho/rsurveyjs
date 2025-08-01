@@ -167,7 +167,7 @@ surveyjs(
     )
   ),
   data = list(name = "Taz", rating = 5),
-  readOnly = TRUE
+  read_only = TRUE
 )
 ```
 

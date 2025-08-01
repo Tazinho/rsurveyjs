@@ -8,7 +8,7 @@ updateSurveyjs(
   session,
   id,
   data = NULL,
-  readOnly = NULL,
+  read_only = NULL,
   schema = NULL,
   theme = NULL,
   locale = NULL
@@ -21,7 +21,7 @@ updateSurveyjs(
 
 \item{data}{Optional named list of answers to set.}
 
-\item{readOnly}{Optional logical; toggle read-only mode.}
+\item{read_only}{Optional logical; toggle read-only mode.}
 
 \item{schema}{Optional new schema (list or JSON string).}
 

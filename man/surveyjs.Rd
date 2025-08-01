@@ -7,16 +7,17 @@
 surveyjs(
   schema,
   data = NULL,
-  readOnly = FALSE,
+  read_only = FALSE,
   live = FALSE,
   theme = "DefaultLight",
   theme_vars = NULL,
   locale = NULL,
   pre_render_hook = NULL,
   post_render_hook = NULL,
+  complete_hook = NULL,
   width = NULL,
   height = NULL,
-  elementId = NULL
+  element_id = NULL
 )
 }
 \arguments{
@@ -25,7 +26,7 @@ surveyjs(
 
 \item{data}{Initial values.}
 
-\item{readOnly}{Render in read-only mode.}
+\item{read_only}{Render in read-only mode.}
 
 \item{live}{Live update responses?}
 
@@ -41,9 +42,11 @@ Supply only the body of a JavaScript function — do not wrap it in \code{functi
 \item{post_render_hook}{JavaScript code (as a string) to run after the survey is rendered.
 Also supply only the body of a JavaScript function — not a full \code{function(...) {}} wrapper.}
 
-\item{width, height}{Optional size specs.}
+\item{complete_hook}{JavaScript function body to run on survey completion}
 
-\item{elementId}{Optional element id for the container.}
+\item{width, height}{Optional CSS size or number.}
+
+\item{element_id}{Optional element ID. Leave NULL in Shiny (it's auto-assigned).}
 }
 \description{
 Render a \href{https://surveyjs.io/}{SurveyJS} form from a JSON schema.
@@ -55,4 +58,8 @@ It supports themes, read-only mode, initial values, localization, and real-time 
 Final answers are delivered to \code{input[[paste0(id, "_data")]]} after the user
 clicks \strong{Complete}. If \code{live = TRUE}, updates are delivered to
 \code{input[[paste0(id, "_data_live")]]} during input.
+
+The SurveyJS widget is responsive by default. The \code{resize()} method is a placeholder
+and does not implement manual resizing logic, as SurveyJS adapts to container size
+via CSS flexbox rules.
 }
