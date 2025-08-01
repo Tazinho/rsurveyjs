@@ -19,6 +19,10 @@ Minimal bindings for [SurveyJS v2.x](https://surveyjs.io/) in R/Shiny.
 surveys, forms and quizzes in Shiny apps using
 [SurveyJS](https://surveyjs.io/) v2.
 
+See the [rsurveyjs
+App-Gallery](https://maltinho.shinyapps.io/rsurveyjs_gallery/) for a
+first glimpse.
+
 ------------------------------------------------------------------------
 
 ## 🚀 Installation
