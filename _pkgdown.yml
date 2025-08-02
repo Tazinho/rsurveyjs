@@ -1,16 +1,29 @@
 url: https://tazinho.github.io/rsurveyjs
 template:
   bootstrap: 5
+  bootswatch: cosmo
 
 navbar:
   structure:
     left:
       - home
+      - gallery
       - reference
       - articles
     right:
+      - news
       - github
   components:
+    gallery:
+      text: "Gallery"
+      href: https://maltinho.shinyapps.io/rsurveyjs_gallery/
+      icon: fa-images
+      aria-label: "Gallery of rsurveyjs Shiny apps"
+    news:
+      text: "News"
+      href: news/index.html
+      icon: fa-newspaper
+      aria-label: "Changelog & News"
     github:
       icon: fab fa-github
       href: https://github.com/Tazinho/rsurveyjs

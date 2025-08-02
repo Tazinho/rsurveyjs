@@ -1,6 +1,10 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://tazinho.github.io/rsurveyjs/404.html</loc></url>
 <url><loc>https://tazinho.github.io/rsurveyjs/articles/advanced-js-hooks-and-events.html</loc></url>
+<url><loc>https://tazinho.github.io/rsurveyjs/articles/articles/advanced-js-hooks-and-events.html</loc></url>
+<url><loc>https://tazinho.github.io/rsurveyjs/articles/articles/shiny-and-database-integration.html</loc></url>
+<url><loc>https://tazinho.github.io/rsurveyjs/articles/articles/survey-schema-recipes.html</loc></url>
+<url><loc>https://tazinho.github.io/rsurveyjs/articles/articles/themes-styling-and-localization.html</loc></url>
 <url><loc>https://tazinho.github.io/rsurveyjs/articles/index.html</loc></url>
 <url><loc>https://tazinho.github.io/rsurveyjs/articles/shiny-and-database-integration.html</loc></url>
 <url><loc>https://tazinho.github.io/rsurveyjs/articles/survey-schema-recipes.html</loc></url>
