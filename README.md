@@ -26,16 +26,12 @@ rsurveyjs App Gallery →</b></a>
 
 </div>
 
-------------------------------------------------------------------------
-
 ## 🚀 Installation
 
 ``` r
 remotes::install_github("Tazinho/rsurveyjs")
 # (CRAN release coming soon)
 ```
-
-------------------------------------------------------------------------
 
 ## ✨ Core Features
 
@@ -48,8 +44,6 @@ remotes::install_github("Tazinho/rsurveyjs")
   - Dynamically update forms, pre-fill data, or localize at runtime
 - Power users: inject JavaScript for validation, custom logic, and
   events
-
-------------------------------------------------------------------------
 
 ## 📚 Learn by Example: Copy-Paste Vignettes
 
@@ -70,8 +64,6 @@ remotes::install_github("Tazinho/rsurveyjs")
 
 > See [all vignettes on the docs
 > site](https://tazinho.github.io/rsurveyjs/articles/).
-
-------------------------------------------------------------------------
 
 ## 🔧 Minimal Example
 
@@ -95,8 +87,6 @@ surveyjs(
 
 *See more: vignette(“survey-schema-recipes”)*
 
-------------------------------------------------------------------------
-
 ## 🧪 Shiny Integration Quick Reference
 
 | Feature               | Shiny Input ID         |
@@ -107,8 +97,6 @@ surveyjs(
 See [Shiny and Database
 Integration](articles/shiny-and-database-integration.html) for advanced
 use.
-
-------------------------------------------------------------------------
 
 ## 🚦 Design Philosophy & Limitations
 
@@ -143,7 +131,15 @@ use.
 > - For real-world JS examples, see the [Advanced JS Hooks & Events
 >   vignette](articles/advanced-js-hooks--events.html).
 
-------------------------------------------------------------------------
+## Note on Custom JavaScript Hooks
+
+Custom JavaScript hooks (`pre_render_hook`, `post_render_hook`,
+`complete_hook`) allow you to inject JavaScript code into the SurveyJS
+widget from R.  
+This is standard for trusted/internal use, but please be aware that any
+code supplied will be executed in the user’s browser.  
+If your app is public or multi-user, only use this feature for users you
+fully trust.
 
 ## 🏗️ Feature Table
 
@@ -158,8 +154,6 @@ use.
 | JS hooks & events | ✅ | ✅ | Pre/post/complete hooks |
 | PDF export, designer, file uploads | ✅ | ❌ | See SurveyJS docs/FAQ |
 
-------------------------------------------------------------------------
-
 ## 📖 Further Reference
 
 - [SurveyJS
@@ -169,15 +163,11 @@ use.
 - [rsurveyjs Vignettes &
   Gallery](https://tazinho.github.io/rsurveyjs/articles/)
 
-------------------------------------------------------------------------
-
 ## 🛠️ Contributing
 
 Feedback, bug reports, and pull requests welcome!  
 [File an issue](https://github.com/Tazinho/rsurveyjs/issues) or
 contribute via PR.
-
-------------------------------------------------------------------------
 
 ## 🪪 License
 
