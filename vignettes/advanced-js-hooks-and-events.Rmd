@@ -8,8 +8,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Advanced JS Hooks & Events
-
 - _Inject custom JavaScript to extend SurveyJS far beyond R defaults._
 - _Validate, log, or react to user input with powerful event hooks._
 - _Write only the body of your JavaScript function, as a string—see runnable examples below._
@@ -153,6 +151,21 @@ surveyjs(
 - See all events: [SurveyJS Events Reference](https://surveyjs.io/form-library/documentation/api-reference/survey-data-model#events).
 
 ---
+
+## Note:
+
+Custom JS hooks are for advanced use and are executed directly in the browser.
+In public or multi-user apps, only use this feature with users you fully trust.
+
+To allow JS hooks only for trusted users, use a pattern like:
+
+```{r, eval = FALSE}
+if (user_is_trusted) {
+  surveyjs(..., complete_hook = "alert('Finished!')")
+} else {
+  surveyjs(..., complete_hook = NULL)
+}
+```
 
 ## Further Reference
 

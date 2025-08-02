@@ -54,14 +54,12 @@
 <div align="center">
 <p><a href="https://maltinho.shinyapps.io/rsurveyjs_gallery/" class="external-link"><b>🌐 See the rsurveyjs App Gallery →</b></a></p>
 </div>
-<hr>
 <div class="section level2">
 <h2 id="rocket-installation">🚀 Installation<a class="anchor" aria-label="anchor" href="#rocket-installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Tazinho/rsurveyjs"</span><span class="op">)</span></span>
 <span><span class="co"># (CRAN release coming soon)</span></span></code></pre></div>
-<hr>
 </div>
 <div class="section level2">
 <h2 id="sparkles-core-features">✨ Core Features<a class="anchor" aria-label="anchor" href="#sparkles-core-features"></a>
@@ -78,7 +76,6 @@
 </li>
 <li>Power users: inject JavaScript for validation, custom logic, and events</li>
 </ul>
-<hr>
 </div>
 <div class="section level2">
 <h2 id="books-learn-by-example-copy-paste-vignettes">📚 Learn by Example: Copy-Paste Vignettes<a class="anchor" aria-label="anchor" href="#books-learn-by-example-copy-paste-vignettes"></a>
@@ -92,7 +89,6 @@
 <blockquote>
 <p>See <a href="https://tazinho.github.io/rsurveyjs/articles/">all vignettes on the docs site</a>.</p>
 </blockquote>
-<hr>
 </div>
 <div class="section level2">
 <h2 id="wrench-minimal-example">🔧 Minimal Example<a class="anchor" aria-label="anchor" href="#wrench-minimal-example"></a>
@@ -114,7 +110,6 @@
 <span>  live <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><em>See more: vignette(“survey-schema-recipes”)</em></p>
-<hr>
 </div>
 <div class="section level2">
 <h2 id="test_tube-shiny-integration-quick-reference">🧪 Shiny Integration Quick Reference<a class="anchor" aria-label="anchor" href="#test_tube-shiny-integration-quick-reference"></a>
@@ -136,7 +131,6 @@
 </tbody>
 </table>
 <p>See <a href="articles/shiny-and-database-integration.html">Shiny and Database Integration</a> for advanced use.</p>
-<hr>
 </div>
 <div class="section level2">
 <h2 id="vertical_traffic_light-design-philosophy--limitations">🚦 Design Philosophy &amp; Limitations<a class="anchor" aria-label="anchor" href="#vertical_traffic_light-design-philosophy--limitations"></a>
@@ -176,7 +170,13 @@ Custom widget support is available <em>for power users only</em>, via JavaScript
 <li>For real-world JS examples, see the <a href="articles/advanced-js-hooks--events.html">Advanced JS Hooks &amp; Events vignette</a>.</li>
 </ul>
 </blockquote>
-<hr>
+</div>
+<div class="section level2">
+<h2 id="note-on-custom-javascript-hooks">Note on Custom JavaScript Hooks<a class="anchor" aria-label="anchor" href="#note-on-custom-javascript-hooks"></a>
+</h2>
+<p>Custom JavaScript hooks (<code>pre_render_hook</code>, <code>post_render_hook</code>, <code>complete_hook</code>) allow you to inject JavaScript code into the SurveyJS widget from R.<br>
+This is standard for trusted/internal use, but please be aware that any code supplied will be executed in the user’s browser.<br>
+If your app is public or multi-user, only use this feature for users you fully trust.</p>
 </div>
 <div class="section level2">
 <h2 id="building_construction-feature-table">🏗️ Feature Table<a class="anchor" aria-label="anchor" href="#building_construction-feature-table"></a>
@@ -242,7 +242,6 @@ Custom widget support is available <em>for power users only</em>, via JavaScript
 </tr>
 </tbody>
 </table>
-<hr>
 </div>
 <div class="section level2">
 <h2 id="open_book-further-reference">📖 Further Reference<a class="anchor" aria-label="anchor" href="#open_book-further-reference"></a>
@@ -252,13 +251,11 @@ Custom widget support is available <em>for power users only</em>, via JavaScript
 <li><a href="https://surveyjs.io/form-library/documentation/manage-default-themes-and-styles" class="external-link">Themes &amp; Styling</a></li>
 <li><a href="https://tazinho.github.io/rsurveyjs/articles/">rsurveyjs Vignettes &amp; Gallery</a></li>
 </ul>
-<hr>
 </div>
 <div class="section level2">
 <h2 id="hammer_and_wrench-contributing">🛠️ Contributing<a class="anchor" aria-label="anchor" href="#hammer_and_wrench-contributing"></a>
 </h2>
 <p>Feedback, bug reports, and pull requests welcome!<br><a href="https://github.com/Tazinho/rsurveyjs/issues" class="external-link">File an issue</a> or contribute via PR.</p>
-<hr>
 </div>
 <div class="section level2">
 <h2 id="identification_card-license">🪪 License<a class="anchor" aria-label="anchor" href="#identification_card-license"></a>

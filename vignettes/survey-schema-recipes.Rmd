@@ -8,8 +8,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Survey Schema Recipes
-
 _Build any survey in R using the power of [SurveyJS](https://surveyjs.io/)._  
 _This vignette is a cookbook: copy, paste, and adapt as needed._
 

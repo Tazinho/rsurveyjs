@@ -7,7 +7,7 @@ articles:
   shiny-and-database-integration: shiny-and-database-integration.html
   survey-schema-recipes: survey-schema-recipes.html
   themes-styling-and-localization: themes-styling-and-localization.html
-last_built: 2025-08-02T17:15Z
+last_built: 2025-08-02T17:32Z
 urls:
   reference: https://tazinho.github.io/rsurveyjs/reference
   article: https://tazinho.github.io/rsurveyjs/articles

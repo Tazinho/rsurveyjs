@@ -8,8 +8,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Shiny and Database Integration
-
 - _Seamlessly embed SurveyJS forms in Shiny apps._
 - _Capture, update, and persist survey responses—including live editing and database storage._
 - _For custom JS hooks or frontend logic, see the [Advanced JS Hooks & Events](advanced-js-hooks--events.html) vignette._

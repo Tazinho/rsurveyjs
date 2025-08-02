@@ -8,8 +8,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Themes, Styling and Localization
-
 - _Change the look and feel of your survey with built-in or custom themes._
 - _Tweak colors, fonts, and layout using CSS variables—all from R._
 - _Instantly translate your survey UI for any audience._
