@@ -12,39 +12,68 @@ Commit](https://img.shields.io/github/last-commit/Tazinho/rsurveyjs.svg)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Minimal bindings for [SurveyJS v2.x](https://surveyjs.io/) in R/Shiny.
-([See also](https://app.unpkg.com/survey-core@2.2.6/files/i18n).)
+**Modern forms & surveys for R and Shiny, powered by [SurveyJS
+v2.x](https://surveyjs.io/).**
 
-**rsurveyjs** lets you render and interact with fully customizable
-surveys, forms and quizzes in Shiny apps using
-[SurveyJS](https://surveyjs.io/) v2.
+Build fully interactive forms, quizzes, and data entry apps in R—using
+SurveyJS’s rich features, themes, and multilingual support.  
+*Ready for everything from simple feedback to research-grade forms.*
 
-See the [rsurveyjs
-App-Gallery](https://maltinho.shinyapps.io/rsurveyjs_gallery/) for a
-first glimpse.
+<div align="center">
+
+<a href="https://maltinho.shinyapps.io/rsurveyjs_gallery/"><b>🌐 See the
+rsurveyjs App Gallery →</b></a>
+
+</div>
 
 ------------------------------------------------------------------------
 
 ## 🚀 Installation
 
 ``` r
-# Install from GitHub
 remotes::install_github("Tazinho/rsurveyjs")
+# (CRAN release coming soon)
 ```
 
 ------------------------------------------------------------------------
 
-## ✨ Features
+## ✨ Core Features
 
-- Integrates **SurveyJS v2** in R
-- Supports **Shiny input/output** for complete + live responses
-- Customize via **CSS variables** using (`theme_vars`)
-- Dynamically update widgets via `updateSurveyjs()`
-- Supports **readonly**, **initial values**, and **multilingual forms**
+- Render any [SurveyJS](https://surveyjs.io/) survey from R lists—no
+  manual JSON needed
+- Built-in & custom themes with CSS variables; multilingual UI out of
+  the box
+- **Seamless Shiny integration:**
+  - Capture complete or live-updating survey responses
+  - Dynamically update forms, pre-fill data, or localize at runtime
+- Power users: inject JavaScript for validation, custom logic, and
+  events
 
 ------------------------------------------------------------------------
 
-## 🔧 Usage Example
+## 📚 Learn by Example: Copy-Paste Vignettes
+
+- **Survey Schema Recipes**  
+  *All core question types, logic, validation—copy, adapt, and build
+  fast.*
+
+- **Themes, Styling and Localization**  
+  *Make it beautiful and accessible for any audience.*
+
+- **Advanced JS Hooks & Events**  
+  *Add custom validation, interactivity, and logic with JavaScript
+  hooks.*
+
+- **Shiny and Database Integration**  
+  *Save responses, restore sessions, and work with databases in
+  production apps.*
+
+> See [all vignettes on the docs
+> site](https://tazinho.github.io/rsurveyjs/articles/).
+
+------------------------------------------------------------------------
+
+## 🔧 Minimal Example
 
 ``` r
 library(rsurveyjs)
@@ -53,289 +82,105 @@ surveyjs(
   schema = list(
     title = "Feedback",
     questions = list(
-      list(type = "rating", name = "s", title = "How satisfied are you?"),
-      list(type = "text", name = "c", title = "Any comments?")
+      list(type = "rating", name = "satisfaction", title = "How satisfied are you?"),
+      list(type = "text", name = "comment", title = "Any comments?")
     )
   ),
+  theme = "modern",
   theme_vars = list("--sjs-primary-backcolor" = "#39f"),
   locale = "en",
   live = TRUE
 )
 ```
 
-------------------------------------------------------------------------
-
-## 📚 SurveyJS Documentation
-
-- [SurveyJS Homepage](https://surveyjs.io/)
-- [Theme Customization
-  Docs](https://surveyjs.io/survey-creator/documentation/theme-editor)
-- [Release Notes](https://surveyjs.io/stay-updated/release-notes)
+*See more: vignette(“survey-schema-recipes”)*
 
 ------------------------------------------------------------------------
 
-## 🧪 Shiny Integration
+## 🧪 Shiny Integration Quick Reference
 
-| Feature                   | Shiny Input ID         |
-|---------------------------|------------------------|
-| Completed form data       | `input$<id>_data`      |
-| Live updates while typing | `input$<id>_data_live` |
+| Feature               | Shiny Input ID         |
+|-----------------------|------------------------|
+| Completed form data   | `input$<id>_data`      |
+| Live updates (typing) | `input$<id>_data_live` |
 
-------------------------------------------------------------------------
-
-## Design Decisions
-
-### No Validation on the R Side
-
-`rsurveyjs` does not perform schema validation in R. This decision is
-based on the fact that SurveyJS already performs runtime validation in
-the browser. It catches basic issues like malformed JSON or unknown
-question types and typically fails gracefully — for example, by skipping
-invalid questions or logging a console warning. However, also SurveyJS
-does not enforce strict pre-validation:
-
-- Invalid types like `type = "foo"` fail silently
-
-- `name` is required — it acts as the key in the survey result; without
-  it, the answer is not saved.
-
-- Invalid logic or expressions may only throw errors at runtime
-
-While an unofficial JSON Schema exists, it’s not actively maintained.
-Adding deep validation in R would introduce unnecessary complexity,
-dependencies, and risk drift from the actual rendering engine.
-
-The philosophy of `rsurveyjs` is to keep things lightweight and trust
-the developer. If something breaks, it will break at render time — just
-as it would in a native SurveyJS project.
-
-### Only apply theme variables if the theme is valid
-
-We intentionally apply custom `theme_vars` only when a valid `theme` is
-provided.
-
-This means:
-
-- If the specified theme is invalid or misspelled, the survey falls back
-  to the default visual style.
-
-- In this case, any `theme_vars` are not applied, since they’re assumed
-  to be designed for the intended `theme`.
-
-This avoids applying potentially mismatched styles and helps keep
-behavior predictable.
+See [Shiny and Database
+Integration](articles/shiny-and-database-integration.html) for advanced
+use.
 
 ------------------------------------------------------------------------
 
-## Comparison of surveyjs and rsurveyjs
+## 🚦 Design Philosophy & Limitations
 
-## 📊 Feature Coverage: SurveyJS vs. rsurveyjs
+- **No R-side validation:**
+  - Schema validation and error handling is performed in the browser by
+    SurveyJS itself.
+- **Custom widgets/plugins:**
+  - Official support for registering new question types from R is not
+    included.  
+  - Power users can inject JavaScript via `pre_render_hook` and related
+    arguments.  
+    See the [Advanced JS Hooks & Events
+    vignette](articles/advanced-js-hooks--events.html).
+- **File uploads, Survey Creator, PDF export:**
+  - Not included, but see the vignettes and [SurveyJS
+    docs](https://surveyjs.io/form-library/documentation/) for guidance
+    and alternatives.
 
-| Feature | SurveyJS (core lib) | `rsurveyjs` Support | Notes / Status |
-|----|----|----|----|
-| JSON-based survey schema | ✅ | ✅ | Fully supported via `schema =` |
-| Multi-page surveys | ✅ | ✅ | Handled via schema structure |
-| Question types (text, rating, dropdown, etc.) | ✅ | ✅ | Full core support |
-| Validation rules | ✅ | ✅ | Add via schema |
-| Conditional logic / visibility rules | ✅ | 🟡 (basic) | Logic works, no helper yet |
-| Themes (built-in) | ✅ | ✅ | Use `theme = "..."` |
-| Theme variables (CSS vars) | ✅ | ✅ | Via `theme_vars = list(...)` |
-| Custom CSS styling | ✅ | 🟡 | Add via Shiny or HTML templates |
-| Localization / i18n | ✅ | 🟡 (manual) | Manual script setup required |
-| Read-only mode | ✅ | ✅ | Via `readOnly = TRUE` |
-| Default values | ✅ | ✅ | Use `data = list(...)` |
-| Live response tracking | ✅ | ✅ | `input$<id>_data_live` in Shiny |
-| Completed result capture | ✅ | ✅ | `input$<id>_data` in Shiny |
-| Dynamic update (R to JS) | ✅ | ✅ | Use `updateSurveyjs()` |
-| Survey events / hooks | ✅ | ❌ | Not exposed (yet) |
-| File uploads | ✅ | ❌ | Not integrated |
-| Custom widgets / question renderers | ✅ | ❌ | JS-level customization only |
-| Survey Creator (visual editor) | ⚠️ Separate product | ❌ | Not included due to license |
-| PDF export | ✅ (via add-on) | ❌ | Not included |
-| Mobile responsiveness | ✅ | ✅ | Inherited from SurveyJS |
-
-### Legend
-
-- ✅ = Fully supported
-- 🟡 = Partially supported / works manually
-- ❌ = Not yet supported in `rsurveyjs`
-- ⚠️ = Separate licensing or package
+> **Advanced: Custom JavaScript and Custom Widgets**
+>
+> - rsurveyjs allows you to inject any JavaScript code via
+>   `pre_render_hook`, `post_render_hook`, and `complete_hook`.
+> - Advanced users can use these hooks to register [SurveyJS custom
+>   widgets or
+>   plugins](https://surveyjs.io/form-library/documentation/custom-widget),
+>   add event listeners, or extend survey logic—provided you are
+>   familiar with the SurveyJS JavaScript API.
+> - **Note:** There is currently no high-level R API for defining or
+>   registering new question types from R code alone.  
+>   Custom widget support is available *for power users only*, via
+>   JavaScript hooks.  
+> - For real-world JS examples, see the [Advanced JS Hooks & Events
+>   vignette](articles/advanced-js-hooks--events.html).
 
 ------------------------------------------------------------------------
 
-## Known limitations so far
-
-- Live results tracking example doesnt work yet \> work with
-  onValueChanged \> Shiny.setInputValue(…)
-
-- Completion example does not work or is not meaningful \> Covered by
-  onComplete + input&<id>\_data
-
-- Dynamic Update example does not work or is not meaningful
-
-- error handling
-
-- Provide file upload example - e.g. what to do then with that file?
-
-- provide a shiny database example including testing with db-connection
-
-- Custom widgets / question renderers (needs js-level support,
-  potentially surveyjs plugin, not sure if possible)
-
-- Extending with custom question types
-
-- Embedding in other widgets or layouts
-
-- tests/unit tests for all examples are needed
-
-- switch language on runtime (e.g. via dropown; supproted by surveyjs)
-  (could add a message handler like “surveyjs-locale” - not yet done)
-
-- what are multi-locale surveys?
-
-- does the high level structure for vignettes make sense?
-
-- PDF/Excel/CSV/JSON Export
-
-- work over vignettes (including editing, consistency, cross-linking,
-  examples)
-
-- DSLs e.g. surveyjs_text, surveyjs_number, .. to user friendly,
-  standardizing, encourage best practices
-
-- validation utilities or DSLs like survejs_validator would output the
-  correct pre_render_hook string for that validator, e.g.,
-
-survey.onValidateQuestion.add(function(sender, options) { if
-(options.name === ‘nickname’ && options.value.length \< 4) {
-options.error = ‘Too short’; } });
-
-4.  Theme Builder / Survey Style Options
-
-Your theme and theme_vars support is already great.
-
-You could:
-
-    Offer a helper like surveyjs_theme_vars(primary = "#abc", text = "#333")
-
-    Document how to preview and customize themes
-
-    Possibly add a live theme preview if/when you build a Shiny demo
-
-5.  Minimal Test Suite / Examples Gallery
-
-Now is a good time to:
-
-    Create a tests/ folder (if not yet done)
-
-    Add snapshot-based examples using {testthat} or {vdiffr}
-
-    Or: create an "Examples Gallery" vignette with real use cases
-
-What You Could Consider Adding — Carefully 1. Expose Specific Model
-Methods via Shiny
-
-Useful for reactive apps: Method Use Case clear() Reset the survey
-completeLastPage() Submit programmatically isCompleted Check state
-
-→ Suggestion: Add Shiny message handlers like “surveyjs-clear” or
-“surveyjs-complete” that call these methods.
-
-You already support surveyModel via el.surveyModel, so this is a natural
-next step when you do Shiny. 2. Advanced Properties (Optional)
-
-These are power-user settings in x, like:
-
-    showCompletedPage
-
-    showNavigationButtons
-
-    questionTitleLocation
-
-You can allow users to pass extra SurveyJS config like:
-
-surveyjs(…, config = list(showNavigationButtons = FALSE))
-
-And then merge x.config into the Survey model before rendering.
-
-But don’t add these until a real user needs them. 3. Events like
-onComplete
-
-This would allow sending survey data to Shiny or logging it.
-
-If you don’t support Shiny yet, no need to expose it now. When you do,
-you can add:
-
-survey.onComplete.add(function(sender) { Shiny.setInputValue(el.id +
-“\_data”, sender.data); });
-
-Great — here’s a focused checklist of SurveyJS methods and events that
-are actually useful when you start integrating with Shiny (or any
-reactive R environment).
-
-These are worth supporting through custom message handlers or exposing
-in the R API when you need interactivity like resetting surveys,
-submitting programmatically, or listening for completion. ✅ Methods to
-Consider (Call from Shiny via session\$sendCustomMessage()) Method What
-It Does When to Use in Shiny survey.clear() Clears all answers Reset
-button or restart flow survey.completeLastPage() Triggers completion
-(like clicking “Complete”) Auto-submit a survey from R/JS
-survey.focusFirstQuestion() Focus the first input field Usability:
-keyboard-first interfaces survey.nextPage() Programmatically move to
-next page Custom navigation buttons survey.prevPage() Go to previous
-page Custom “Back” button survey.getQuestionByName(“x”) Access question
-programmatically For advanced UI control or overrides Example: Call
-clear() from Shiny
-
-In JS (you already expose el.surveyModel):
-
-Shiny.addCustomMessageHandler(“surveyjs-clear”, function(message) {
-const el = document.getElementById(message.el); if (el &&
-el.surveyModel) { el.surveyModel.clear(); } });
-
-<!-- In R: -->
-
-<!-- session$sendCustomMessage("surveyjs-clear", list(el = "survey_id")) -->
-
-<!-- ✅ Events to Add for Shiny Interop -->
-
-<!-- Event  Purpose When to Use -->
-
-<!-- onComplete Send results to Shiny when survey is done   Capture responses in server -->
-
-<!-- onValueChanged Live-update an input binding    Track form progress reactively -->
-
-<!-- Example: Live updates -->
-
-<!-- survey.onValueChanged.add(function(sender, options) { -->
-
-<!--   Shiny.setInputValue(el.id + "_data_live", sender.data, { priority: "event" }); -->
-
-<!-- }); -->
-
-<!-- And final submission: -->
-
-<!-- survey.onComplete.add(function(sender) { -->
-
-<!--   Shiny.setInputValue(el.id + "_data", sender.data); -->
-
-<!-- }); -->
-
-<!-- Then in R: -->
-
-<!-- input$survey_id_data      # final completed data -->
-
-<!-- input$survey_id_data_live # updated continuously -->
-
-    <!-- onComplete, onValueChanged -->
-
-    <!-- Maybe nextPage()/prevPage() for custom buttons -->
+## 🏗️ Feature Table
+
+| Feature | SurveyJS | rsurveyjs | Notes |
+|----|:--:|:--:|:---|
+| JSON-based survey schema | ✅ | ✅ | List/JSON via `schema=` |
+| Multi-page, logic, validation | ✅ | ✅ | All schema features |
+| Themes & theme variables | ✅ | ✅ | Use `theme`, `theme_vars` |
+| Localization / i18n | ✅ | ✅ | `locale =` + translations |
+| Read-only mode | ✅ | ✅ | `read_only = TRUE` |
+| Live response capture (Shiny) | ✅ | ✅ | `input$<id>_data_live` |
+| JS hooks & events | ✅ | ✅ | Pre/post/complete hooks |
+| PDF export, designer, file uploads | ✅ | ❌ | See SurveyJS docs/FAQ |
+
+------------------------------------------------------------------------
+
+## 📖 Further Reference
+
+- [SurveyJS
+  Documentation](https://surveyjs.io/form-library/documentation/json-schema)
+- [Themes &
+  Styling](https://surveyjs.io/form-library/documentation/manage-default-themes-and-styles)
+- [rsurveyjs Vignettes &
+  Gallery](https://tazinho.github.io/rsurveyjs/articles/)
+
+------------------------------------------------------------------------
+
+## 🛠️ Contributing
+
+Feedback, bug reports, and pull requests welcome!  
+[File an issue](https://github.com/Tazinho/rsurveyjs/issues) or
+contribute via PR.
 
 ------------------------------------------------------------------------
 
 ## 🪪 License
 
-- SurveyJS Form Library is licensed under MIT.
-- rsurveyjs is MIT licensed.
+SurveyJS Form Library and rsurveyjs are both MIT licensed.
 
-Note: **Survey Creator is not included** due to licensing restrictions.
+> **Note:** SurveyJS Creator/Designer is not included due to licensing.

@@ -1,0 +1,218 @@
+---
+title: "Shiny and Database Integration"
+description: "Collect, update, and save survey responses interactively—including persistent storage and live updates in Shiny."
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Shiny and Database Integration}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Shiny and Database Integration
+
+- _Seamlessly embed SurveyJS forms in Shiny apps._
+- _Capture, update, and persist survey responses—including live editing and database storage._
+- _For custom JS hooks or frontend logic, see the [Advanced JS Hooks & Events](advanced-js-hooks--events.html) vignette._
+
+---
+
+## Table of Contents
+
+- [Minimal Shiny Survey App](#minimal-shiny-survey-app)
+- [Live Mode: Real-Time Updates](#live-mode-real-time-updates)
+- [Dynamic Updates: Update Survey from Server](#dynamic-updates-update-survey-from-server)
+- [Saving and Loading Responses with a Database](#saving-and-loading-responses-with-a-database)
+- [Common Pitfalls & Further Reference](#common-pitfalls--further-reference)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+library(rsurveyjs)
+```
+
+---
+
+## Minimal Shiny Survey App
+
+```{r minimal-shiny-app, eval=FALSE}
+library(shiny)
+library(rsurveyjs)
+
+ui <- fluidPage(
+  surveyjsOutput("mysurvey"),
+  verbatimTextOutput("result")
+)
+
+server <- function(input, output, session) {
+  output$mysurvey <- renderSurveyjs({
+    surveyjs(
+      schema = list(
+        title = "Feedback",
+        questions = list(
+          list(type = "text", name = "name", title = "What is your name?"),
+          list(type = "rating", name = "rating", title = "How would you rate us?")
+        )
+      )
+    )
+  })
+
+  output$result <- renderPrint({
+    input$mysurvey_data
+  })
+}
+
+shinyApp(ui, server)
+```
+
+---
+
+## Live Mode: Real-Time Updates
+
+Use `live = TRUE` to get continuous feedback as the user fills out the form.
+
+```{r, eval=FALSE}
+ui <- fluidPage(
+  surveyjsOutput("mysurvey"),
+  verbatimTextOutput("live_output")
+)
+
+server <- function(input, output, session) {
+  output$mysurvey <- renderSurveyjs({
+    surveyjs(
+      schema = list(
+        title = "Live Feedback",
+        questions = list(
+          list(type = "text", name = "comment", title = "Your comment?")
+        )
+      ),
+      live = TRUE
+    )
+  })
+
+  output$live_output <- renderPrint({
+    input$mysurvey_data_live
+  })
+}
+```
+
+- Use `input$<id>_data_live` for live data.
+- Use `input$<id>_data` for final, completed responses.
+
+---
+
+## Dynamic Updates: Update Survey from Server
+
+Use `updateSurveyjs()` to change schema, initial data, theme, or locale on the fly.
+
+```{r, eval=FALSE}
+ui <- fluidPage(
+  surveyjsOutput("mysurvey"),
+  actionButton("reload", "Switch Survey")
+)
+
+server <- function(input, output, session) {
+  output$mysurvey <- renderSurveyjs({
+    surveyjs(
+      schema = list(
+        title = "First Survey",
+        questions = list(
+          list(type = "text", name = "favorite", title = "Favorite color?")
+        )
+      )
+    )
+  })
+
+  observeEvent(input$reload, {
+    updateSurveyjs(session, "mysurvey", schema = list(
+      title = "New Survey",
+      questions = list(
+        list(type = "rating", name = "satisfaction", title = "Rate your satisfaction")
+      )
+    ))
+  })
+}
+```
+
+---
+
+## Saving and Loading Responses with a Database
+
+Here’s a minimal example using `{DBI}` and SQLite for persistent storage.
+
+```{r, eval=FALSE}
+library(DBI)
+library(RSQLite)
+library(shiny)
+library(rsurveyjs)
+
+# Set up database connection (for demo: use temp file)
+con <- dbConnect(RSQLite::SQLite(), "responses.sqlite")
+if (!dbExistsTable(con, "survey_results")) {
+  dbExecute(con, "CREATE TABLE survey_results (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp TEXT,
+    name TEXT,
+    rating INTEGER
+  )")
+}
+
+ui <- fluidPage(
+  surveyjsOutput("mysurvey"),
+  actionButton("save", "Save Response"),
+  tableOutput("responses")
+)
+
+server <- function(input, output, session) {
+  output$mysurvey <- renderSurveyjs({
+    surveyjs(
+      schema = list(
+        title = "Feedback",
+        questions = list(
+          list(type = "text", name = "name", title = "Your name?"),
+          list(type = "rating", name = "rating", title = "Rate us")
+        )
+      )
+    )
+  })
+
+  observeEvent(input$save, {
+    dat <- input$mysurvey_data
+    if (!is.null(dat)) {
+      dbExecute(con, "INSERT INTO survey_results (timestamp, name, rating) VALUES (?, ?, ?)",
+        params = list(Sys.time(), dat$name, dat$rating)
+      )
+    }
+  })
+
+  output$responses <- renderTable({
+    dbGetQuery(con, "SELECT * FROM survey_results ORDER BY id DESC")
+  })
+}
+
+onStop(function() dbDisconnect(con))
+shinyApp(ui, server)
+```
+
+- Replace `"responses.sqlite"` with your desired file path or use another DBI-compatible backend.
+- For production, sanitize and validate inputs appropriately.
+
+---
+
+## Common Pitfalls & Further Reference
+
+- **Input IDs:**  
+  - `input$mysurvey_data` is the completed form data.  
+  - `input$mysurvey_data_live` is live-updating data (when `live = TRUE`).
+- **Missing responses:**  
+  - Always check `is.null(input$mysurvey_data)` before saving.
+  - Ensure the survey “Complete” button is clicked to trigger saving.
+- **More advanced features:**  
+  - See [Advanced JS Hooks & Events](advanced-js-hooks--events.html) to react to completion or validation in the frontend.
+- **Further Reading:**  
+  - [SurveyJS documentation](https://surveyjs.io/form-library/documentation/)
+  - [DBI documentation](https://dbi.r-dbi.org/)
+  - [RSQLite documentation](https://rsqlite.r-dbi.org/)
+

@@ -1,0 +1,160 @@
+---
+title: "Advanced JS Hooks & Events"
+description: "Inject custom JavaScript, validation, or event logic beyond R—unlock the full power of SurveyJS events and lifecycle."
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Advanced JS Hooks & Events}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Advanced JS Hooks & Events
+
+- _Inject custom JavaScript to extend SurveyJS far beyond R defaults._
+- _Validate, log, or react to user input with powerful event hooks._
+- _Write only the body of your JavaScript function, as a string—see runnable examples below._
+- _Tip: Always use just the function body (no `function(...) {}` wrapper), and check the browser’s JS console for errors._
+- _For survey building blocks and theming, see the other vignettes._
+
+---
+
+## Table of Contents
+
+- [What are JS Hooks?](#what-are-js-hooks)
+- [Pre-Render Hook](#pre-render-hook)
+- [Post-Render Hook](#post-render-hook)
+- [Complete Hook](#complete-hook)
+- [Custom Event Listeners](#custom-event-listeners)
+- [Debugging and Tips](#debugging-and-tips)
+- [Further Reference](#further-reference)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 8
+)
+library(rsurveyjs)
+```
+
+---
+
+## What are JS Hooks?
+
+- Hooks let you insert custom JavaScript at key points in the survey lifecycle.
+- Write just the **function body** (as a string), not a full `function() { ... }`.
+- Hooks run in the browser. Use `console.log()` for debugging.
+
+---
+
+## Pre-Render Hook
+
+**Runs before the survey is displayed.**  
+Use for custom validation, event listeners, or setup logic.
+
+### Example: Enforce minimum nickname length
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Nickname Check",
+    questions = list(
+      list(type = "text", name = "nickname", title = "Enter a nickname")
+    )
+  ),
+  pre_render_hook = "
+    survey.onValidateQuestion.add(function(sender, options) {
+      if (options.name === 'nickname' && options.value.length < 4) {
+        options.error = 'Too short';
+      }
+    });
+  "
+)
+```
+
+---
+
+## Post-Render Hook
+
+**Runs after the survey is rendered.**  
+Use for custom DOM tweaks, styling, or logging.
+
+### Example: Add a custom border
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Styled Survey",
+    questions = list(
+      list(type = "text", name = "name", title = "Your name?")
+    )
+  ),
+  post_render_hook = "
+    el.style.border = '2px dashed #888';
+    console.log('Survey rendered:', el);
+  "
+)
+```
+
+---
+
+## Complete Hook
+
+**Runs when the survey is completed by the user.**  
+Use to trigger alerts, send data, or fire custom analytics.
+
+### Example: Show a thank-you alert
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Completion Alert",
+    questions = list(
+      list(type = "text", name = "email", title = "Your email?")
+    )
+  ),
+  complete_hook = "
+    alert('Thank you for completing the survey!');
+  "
+)
+```
+
+---
+
+## Custom Event Listeners
+
+Attach any [SurveyJS event](https://surveyjs.io/form-library/documentation/api-reference/survey-data-model#events) in a pre-render hook.
+
+### Example: Log every value change
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Value Tracking",
+    questions = list(
+      list(type = "text", name = "email", title = "Your email?")
+    )
+  ),
+  pre_render_hook = "
+    survey.onValueChanged.add(function(sender, options) {
+      console.log('Field changed:', options.name, options.value);
+    });
+  "
+)
+```
+
+---
+
+## Debugging and Tips
+
+- Write only the function body (not `function() { ... }`).
+- Use `console.log()` for debugging in your browser’s JS console.
+- If your JS code errors, check the browser console for details.
+- See all events: [SurveyJS Events Reference](https://surveyjs.io/form-library/documentation/api-reference/survey-data-model#events).
+
+---
+
+## Further Reference
+
+- [SurveyJS Events API](https://surveyjs.io/form-library/documentation/api-reference/survey-data-model#events)
+- See also: [Survey Schema Recipes](survey-schema-recipes.html), [Themes, Styling and Localization](themes-styling-and-localization.html)

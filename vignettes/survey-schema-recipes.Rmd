@@ -1,0 +1,415 @@
+---
+title: "Survey Schema Recipes"
+description: "Copy-paste recipes for every survey building block: question types, validation, logic, and more."
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Survey Schema Recipes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Survey Schema Recipes
+
+_Build any survey in R using the power of [SurveyJS](https://surveyjs.io/)._  
+_This vignette is a cookbook: copy, paste, and adapt as needed._
+
+---
+
+## Table of Contents
+
+- [Single Question Types](#single-question-types)
+- [Multiple Choice & Matrix](#multiple-choice--matrix)
+- [Layout: Pages, Panels, Dynamic Forms](#layout-pages-panels-dynamic-forms)
+- [Advanced: Validation, Logic, Quizzes](#advanced-validation-logic-quizzes)
+- [Initial Values & Read-only Mode](#initial-values--read-only-mode)
+- [Calculated Fields](#calculated-fields)
+- [Static Content: Images & HTML](#static-content-images--html)
+- [Further Reference](#further-reference)
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width = 8
+)
+library(rsurveyjs)
+original_surveyjs <- get("surveyjs", envir = asNamespace("rsurveyjs"))
+surveyjs <- function(...) original_surveyjs(..., width = "100%", height = "100%")
+```
+
+- Tip: Pass a JSON-compatible list to `surveyjs()` to render a survey.
+- Tip: Results are only returned to R in a Shiny app—see the Shiny Integration vignette.
+- Every example here is a ready-to-run R code chunk.
+- Use as a cookbook for question types, validation, and logic.
+- See [SurveyJS question types documentation](https://surveyjs.io/form-library/documentation/question) for the full range.
+
+---
+
+## Single Question Types
+
+### Text Input
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Text Input",
+    questions = list(
+      list(type = "text", name = "name", title = "What is your name?")
+    )
+  )
+)
+```
+
+### Comment Box
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Comment",
+    questions = list(
+      list(type = "comment", name = "feedback", title = "Your feedback?")
+    )
+  )
+)
+```
+
+### Rating
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Rating",
+    questions = list(
+      list(type = "rating", name = "satisfaction", title = "How satisfied?")
+    )
+  )
+)
+```
+
+### Dropdown
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Dropdown",
+    questions = list(
+      list(type = "dropdown", name = "country", title = "Country?", choices = list("USA", "Canada", "Other"))
+    )
+  )
+)
+```
+
+### Checkbox
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Checkbox",
+    questions = list(
+      list(type = "checkbox", name = "fruits", title = "Pick fruits", choices = list("Apple", "Banana", "Cherry"))
+    )
+  )
+)
+```
+
+### Radio Group
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Radio Group",
+    questions = list(
+      list(type = "radiogroup", name = "gender", title = "Gender", choices = list("Female", "Male", "Other"))
+    )
+  )
+)
+```
+
+### Boolean Toggle
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Boolean",
+    questions = list(
+      list(type = "boolean", name = "agree", title = "Do you agree?")
+    )
+  )
+)
+```
+
+---
+
+## Multiple Choice & Matrix
+
+### Matrix (Tabular Input)
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Satisfaction Matrix",
+    questions = list(
+      list(
+        type = "matrix",
+        name = "satisfaction",
+        title = "How satisfied are you with...",
+        rows = list("Quality", "Speed"),
+        columns = list("Bad", "Okay", "Good")
+      )
+    )
+  )
+)
+```
+
+### Matrix Dropdown
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Matrix Dropdown",
+    questions = list(
+      list(
+        type = "matrixdropdown",
+        name = "skills",
+        title = "Skill evaluation",
+        columns = list(
+          list(name = "experience", title = "Years", cellType = "dropdown", choices = 0:5)
+        ),
+        rows = list(
+          list(value = "r", text = "R"),
+          list(value = "python", text = "Python")
+        )
+      )
+    )
+  )
+)
+```
+
+---
+
+## Layout: Pages, Panels, Dynamic Forms
+
+### Multi-Page Survey
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Multi-page Survey",
+    pages = list(
+      list(name = "page1", elements = list(
+        list(type = "text", name = "first", title = "First Name")
+      )),
+      list(name = "page2", elements = list(
+        list(type = "text", name = "last", title = "Last Name")
+      ))
+    )
+  )
+)
+```
+
+### Panels (Grouping Questions)
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Panel Example",
+    questions = list(
+      list(
+        type = "panel",
+        name = "personal_info",
+        title = "Personal Information",
+        elements = list(
+          list(type = "text", name = "email", title = "Email"),
+          list(type = "text", name = "phone", title = "Phone")
+        )
+      )
+    )
+  )
+)
+```
+
+### Dynamic Panel
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Work History",
+    questions = list(
+      list(
+        type = "paneldynamic",
+        name = "jobs",
+        title = "Previous Jobs",
+        templateElements = list(
+          list(type = "text", name = "employer", title = "Employer"),
+          list(type = "text", name = "role", title = "Role")
+        ),
+        panelCount = 1
+      )
+    )
+  )
+)
+```
+
+---
+
+## Advanced: Validation, Logic, Quizzes
+
+### Required and Validated Input
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Validation Example",
+    questions = list(
+      list(
+        type = "text", name = "email", title = "Email",
+        isRequired = TRUE,
+        validators = list(list(type = "email"))
+      )
+    )
+  )
+)
+```
+
+### Regex Validation
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Regex Validation",
+    questions = list(
+      list(
+        type = "text", name = "code", title = "Code",
+        validators = list(list(type = "regex", regex = "^[A-Z]{3}-\\d{3}$", text = "Format: AAA-999"))
+      )
+    )
+  )
+)
+```
+
+### Conditional Questions
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Conditional Example",
+    questions = list(
+      list(type = "radiogroup", name = "happy", title = "Are you happy?", choices = list("Yes", "No")),
+      list(type = "comment", name = "whyNot", title = "Why not?", visibleIf = "{happy} = 'No'")
+    )
+  )
+)
+```
+
+### Quiz
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Quiz",
+    pages = list(
+      list(elements = list(
+        list(
+          type = "radiogroup", name = "capital", title = "Capital of France?",
+          choices = c("Berlin", "Paris", "Madrid"), correctAnswer = "Paris"
+        )
+      ))
+    ),
+    showProgressBar = "top",
+    showCorrectAnswers = "true",
+    completedHtml = "<h4>You scored {correctAnswers} out of {questionCount}.</h4>"
+  )
+)
+```
+
+---
+
+## Initial Values & Read-only Mode
+
+### Pre-fill Answers
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Pre-filled Survey",
+    questions = list(
+      list(type = "text", name = "name", title = "Name"),
+      list(type = "rating", name = "rating", title = "Rating")
+    )
+  ),
+  data = list(name = "Taz", rating = 5)
+)
+```
+
+### Read-only Preview
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Read-only Preview",
+    questions = list(
+      list(type = "text", name = "name", title = "Name"),
+      list(type = "rating", name = "rating", title = "Rating")
+    )
+  ),
+  data = list(name = "Taz", rating = 5),
+  read_only = TRUE
+)
+```
+
+---
+
+## Calculated Fields
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Sum Example",
+    questions = list(
+      list(type = "text", name = "a", title = "Enter a"),
+      list(type = "text", name = "b", title = "Enter b"),
+      list(type = "expression", name = "sum", title = "Sum", expression = "{a} + {b}")
+    )
+  )
+)
+```
+
+---
+
+## Static Content: Images & HTML
+
+### HTML Block
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "HTML Example",
+    questions = list(
+      list(type = "html", name = "intro", html = "<b>Welcome to the survey!</b>")
+    )
+  )
+)
+```
+
+### Image
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Image Example",
+    questions = list(
+      list(type = "image", name = "logo", imageLink = "https://via.placeholder.com/300x100")
+    )
+  )
+)
+```
+
+---
+
+## Further Reference
+
+- See the [Themes, Styling and Localization](themes-styling-and-localization.html) vignette for design tweaks.
+- [SurveyJS Full Schema Reference](https://surveyjs.io/form-library/documentation/json-schema)
+- [SurveyJS Question Types](https://surveyjs.io/form-library/documentation/question)

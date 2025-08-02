@@ -29,19 +29,18 @@ reference:
       - surveyjs_schema
 
 articles:
-  - title: Getting Started
+  - title: Survey Recipes & Guides (Index)
     contents:
-      - getting-started
-  - title: Live Server Updates
+      - articles/index
+  - title: Survey Schema Recipes
     contents:
-      - server-updates
-  - title: Examples
+      - survey-schema-recipes
+  - title: Themes, Styling and Localization
     contents:
-      - examples
-  - title: Question Types
+      - themes-styling-and-localization
+  - title: Advanced JS Hooks & Events
     contents:
-      - question-types
-  - title: Survey Modes
+      - advanced-js-hooks-and-events
+  - title: Shiny and Database Integration
     contents:
-      - survey-modes
-
+      - shiny-and-database-integration

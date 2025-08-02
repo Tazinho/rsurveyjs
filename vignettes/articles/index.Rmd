@@ -1,0 +1,34 @@
+---
+title: "Survey Recipes & Guides"
+description: "Start here: overview, recipes, and advanced integration for rsurveyjs."
+output: rmarkdown::html_vignette
+internal: true
+---
+
+# Survey Recipes & Guides
+
+Welcome! Here you’ll find hands-on recipes and advanced usage for `rsurveyjs`.  
+Click any topic to jump in—every example is copy-paste ready.
+
+---
+
+## Vignettes
+
+- [**Survey Schema Recipes**](../survey-schema-recipes.html)  
+  _Copy-paste recipes for every survey building block: question types, validation, logic, and more._
+
+- [**Themes, Styling and Localization**](../themes-styling-and-localization.html)  
+  _Make your surveys beautiful and multi-lingual with themes, CSS variables, and localization._
+
+- [**Advanced JS Hooks & Events**](../advanced-js-hooks-and-events.html)  
+  _Inject custom JavaScript, validation, or event logic beyond R—unlock the full power of SurveyJS events and lifecycle._
+
+- [**Shiny and Database Integration**](../shiny-and-database-integration.html)  
+  _Collect, update, and save survey responses interactively—including persistent storage and live updates in Shiny._
+
+---
+
+For a gallery of real-world apps, see the  
+[**rsurveyjs App Gallery**](https://maltinho.shinyapps.io/rsurveyjs_gallery/).
+
+For API reference, see the [Reference](../reference/index.html) page.

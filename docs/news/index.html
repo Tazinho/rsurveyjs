@@ -31,18 +31,53 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.0" id="version-010">Version 0.1.0<a class="anchor" aria-label="anchor" href="#version-010"></a></h2>
-<ul><li>Initial release of <code>rsurveyjs</code>, supporting:
-<ul><li>SurveyJS v2 (React-based)</li>
-<li>Dynamic theming via CSS variables (<code>theme_vars</code>)</li>
-<li>Shiny integration (<code><a href="../reference/surveyjs-shiny.html">surveyjsOutput()</a></code>, <code><a href="../reference/surveyjs-shiny.html">renderSurveyjs()</a></code>)</li>
-<li>Server-side updates (<code><a href="../reference/updateSurveyjs.html">updateSurveyjs()</a></code>)</li>
-<li>Dependency-managed via <code>htmlwidgets</code> and pkgdown-ready</li>
+<h2 class="pkg-version" data-toc-text="0.1.0" id="rsurveyjs-010">rsurveyjs 0.1.0<a class="anchor" aria-label="anchor" href="#rsurveyjs-010"></a></h2>
+<div class="section level3">
+<h3 id="initial-release-0-1-0">Initial release<a class="anchor" aria-label="anchor" href="#initial-release-0-1-0"></a></h3>
+<ul><li><strong>First release of <code>rsurveyjs</code>: Minimal, powerful R bindings for <a href="https://surveyjs.io/" class="external-link">SurveyJS v2.x</a></strong></li>
+</ul><div class="section level4">
+<h4 id="features-0-1-0">Features<a class="anchor" aria-label="anchor" href="#features-0-1-0"></a></h4>
+<ul><li>Render <a href="https://surveyjs.io/" class="external-link">SurveyJS</a> surveys, forms, and quizzes from R using simple JSON-compatible lists</li>
+<li>Full <strong>Shiny integration</strong>:
+<ul><li>Get completed responses via <code>input$&lt;id&gt;_data</code>
+</li>
+<li>Track live responses while typing via <code>input$&lt;id&gt;_data_live</code>
+</li>
+<li>Dynamically update schema, data, theme, or language from the server</li>
 </ul></li>
-<li>Dropped legacy SurveyJS v1 fallback to simplify maintenance</li>
-<li>Added introductory vignette: “Getting Started”</li>
+<li>
+<strong>Easy theming and localization</strong>:
+<ul><li>Choose from built-in SurveyJS themes<br></li>
+<li>Customize styles via CSS variables (<code>theme_vars</code>)<br></li>
+<li>Instantly localize the UI with the <code>locale</code> argument, or provide multi-locale schemas</li>
+</ul></li>
+<li>
+<strong>Advanced extensibility</strong>:
+<ul><li>Inject custom JavaScript (for validation, events, or logic) via <code>pre_render_hook</code>, <code>post_render_hook</code>, and <code>complete_hook</code>
+</li>
+<li>Listen to any SurveyJS event or add custom behaviors</li>
+</ul></li>
+<li>
+<strong>Real-world vignettes and recipes</strong>:
+<ul><li>
+<a href="articles/survey-schema-recipes.html">Survey Schema Recipes</a>: Copy-paste building blocks for all question types, logic, and validation</li>
+<li><a href="articles/themes-styling-and-localization.html">Themes, Styling and Localization</a></li>
+<li><a href="articles/advanced-js-hooks--events.html">Advanced JS Hooks &amp; Events</a></li>
+<li>
+<a href="articles/shiny-and-database-integration.html">Shiny and Database Integration</a>: Persistent survey storage with database examples</li>
+</ul></li>
 </ul></div>
-  </main></div>
+<div class="section level4">
+<h4 id="philosophy--limitations-0-1-0">Philosophy &amp; Limitations<a class="anchor" aria-label="anchor" href="#philosophy--limitations-0-1-0"></a></h4>
+<ul><li>Keeps all validation and rendering on the JS (SurveyJS) side—no R-side schema validation</li>
+<li>No bundled visual designer or SurveyJS Creator (see <a href="https://surveyjs.io/licensing" class="external-link">SurveyJS licensing</a> for those features)</li>
+<li>Custom widgets/plugins are not officially supported, but power users can inject JavaScript for advanced cases</li>
+</ul><hr><p>Thank you to early testers and the SurveyJS team for making world-class survey tooling available under MIT!</p>
+</div>
+</div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

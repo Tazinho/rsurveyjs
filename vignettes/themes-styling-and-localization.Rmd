@@ -1,0 +1,153 @@
+---
+title: "Themes, Styling and Localization"
+description: "Make your surveys beautiful and multi-lingual with themes, CSS variables, and localization."
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Themes, Styling and Localization}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Themes, Styling and Localization
+
+- _Change the look and feel of your survey with built-in or custom themes._
+- _Tweak colors, fonts, and layout using CSS variables—all from R._
+- _Instantly translate your survey UI for any audience._
+- _For full schema and question options, see [Survey Schema Recipes]._
+- _Tip: Can’t see your theme? Run `surveyjs_themes()` to check spelling!_
+
+## Table of Contents
+
+- [Themes: Built-in Styles](#themes-built-in-styles)
+- [Custom Styling with CSS Variables](#custom-styling-with-css-variables)
+- [List Available Themes](#list-available-themes)
+- [Localization: Changing Survey Language](#localization-changing-survey-language)
+- [Further Reference](#further-reference)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width = 8
+)
+library(rsurveyjs)
+```
+
+## Themes: Built-in Styles
+
+SurveyJS offers a variety of built-in themes to match modern UI patterns. Themes are well documented under [Themes & Styles](https://surveyjs.io/form-library/documentation/manage-default-themes-and-styles) from the original surveyjs documentation. General speaking every theme comes with a light/dark version and in a panel/panelless variant. For convenience all available themes are referenced under `surveyjs_themes()` within `rsurveyjs`.
+
+### Using a built-in theme
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Modern Theme Example",
+    questions = list(
+      list(type = "text", name = "name", title = "Your name?"),
+      list(type = "rating", name = "rating", title = "How was your experience?")
+    )
+  ),
+  theme = "modern"
+)
+```
+
+Try `"defaultV2"`, `"ThreeDimensionalLightPanelless"`, `"contrast-dark"`, `"flat-light"`, etc.
+Custom Styling with CSS Variables
+
+You can override [CSS variables](https://surveyjs.io/form-library/documentation/manage-default-themes-and-styles) to change colors, corners, fonts, and more.
+
+### Example: Custom brand colors
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Custom Theme Colors",
+    questions = list(
+      list(type = "text", name = "team", title = "Your favorite team?")
+    )
+  ),
+  theme = "DefaultLightPanelless",
+  theme_vars = list(
+    "--sjs-primary-backcolor" = "#0072B2",       # Custom blue
+    "--sjs-primary-forecolor" = "#ffffff",       # White text
+    "--sjs-corner-radius" = "14px",              # More rounded corners
+    "--sjs-shadow-medium" = "0 4px 12px rgba(0,0,0,0.2)" # Softer shadow
+  )
+)
+```
+
+You can set any CSS variable supported by SurveyJS.
+For the full list, see [SurveyJS theme variable docs].
+
+## List Available Themes
+
+You can list all available themes in rsurveyjs with:
+
+```{r}
+surveyjs_themes()
+```
+
+## Localization: Changing Survey Language
+
+Easily switch the language of your survey UI for international audiences. (Note: _only_ technical key-words like "Complete" etc. get properly translated via the `locale` argument.) If you want more, see the multi-locale support section below.
+
+### Example: German language
+
+```{r}
+surveyjs(
+  schema = list(
+    title = "Umfrage",
+    questions = list(
+      list(type = "rating", name = "zufriedenheit", title = "Wie zufrieden sind Sie?")
+    )
+  ),
+  locale = "de"
+)
+```
+
+### Supported Languages
+
+SurveyJS supports many locales: `"en"`, `"de"`, `"fr"`, `"es"`, `"pt"`, `"ru"`, and more.
+See [SurveyJS localization docs](https://surveyjs.io/form-library/documentation/localization#localization) for the full list.
+
+### Multi-locale support
+
+```{r}
+surveyjs(
+  schema = list(
+    title = list(
+      en = "Satisfaction Survey",
+      fr = "Enquête de satisfaction"
+    ),
+    questions = list(
+      list(
+        type = "rating",
+        name = "satisfaction",
+        title = list(
+          en = "How satisfied are you?",
+          fr = "Êtes-vous satisfait ?"
+        )
+      ),
+      list(
+        type = "comment",
+        name = "comments",
+        title = list(
+          en = "Additional comments",
+          fr = "Commentaires supplémentaires"
+        )
+      )
+    )
+  ),
+  locale = "fr"   # Try "en" or "fr"
+)
+```
+
+## Further Reference
+
+* [SurveyJS: Manage default themes and styles](https://surveyjs.io/form-library/documentation/manage-default-themes-and-styles)
+
+* [SurveyJS: Localization](https://surveyjs.io/form-library/documentation/localization#localization)
+
+* See also: [Survey Schema Recipes]()
+
