@@ -1,1 +1,6 @@
-exportPattern("^[[:alpha:]]+")
+export(surveyjs)
+export(surveyjsOutput)
+export(renderSurveyjs)
+export(updateSurveyjs)
+export(surveyjs_themes)
+export(surveyjs_schema)
