@@ -60,9 +60,6 @@
 
     
     
-<div class="section level2">
-<h2 id="shiny-and-database-integration">Shiny and Database Integration<a class="anchor" aria-label="anchor" href="#shiny-and-database-integration"></a>
-</h2>
 <ul>
 <li><em>Seamlessly embed SurveyJS forms in Shiny apps.</em></li>
 <li><em>Capture, update, and persist survey responses—including live
@@ -71,9 +68,9 @@ editing and database storage.</em></li>
 vignette.</em></li>
 </ul>
 <hr>
-<div class="section level3">
-<h3 id="table-of-contents">Table of Contents<a class="anchor" aria-label="anchor" href="#table-of-contents"></a>
-</h3>
+<div class="section level2">
+<h2 id="table-of-contents">Table of Contents<a class="anchor" aria-label="anchor" href="#table-of-contents"></a>
+</h2>
 <ul>
 <li><a href="#minimal-shiny-survey-app">Minimal Shiny Survey
 App</a></li>
@@ -88,9 +85,9 @@ Further Reference</a></li>
 </ul>
 <hr>
 </div>
-<div class="section level3">
-<h3 id="minimal-shiny-survey-app">Minimal Shiny Survey App<a class="anchor" aria-label="anchor" href="#minimal-shiny-survey-app"></a>
-</h3>
+<div class="section level2">
+<h2 id="minimal-shiny-survey-app">Minimal Shiny Survey App<a class="anchor" aria-label="anchor" href="#minimal-shiny-survey-app"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tazinho.github.io/rsurveyjs">rsurveyjs</a></span><span class="op">)</span></span>
@@ -121,9 +118,9 @@ Further Reference</a></li>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
-<div class="section level3">
-<h3 id="live-mode-real-time-updates">Live Mode: Real-Time Updates<a class="anchor" aria-label="anchor" href="#live-mode-real-time-updates"></a>
-</h3>
+<div class="section level2">
+<h2 id="live-mode-real-time-updates">Live Mode: Real-Time Updates<a class="anchor" aria-label="anchor" href="#live-mode-real-time-updates"></a>
+</h2>
 <p>Use <code>live = TRUE</code> to get continuous feedback as the user
 fills out the form.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -148,7 +145,9 @@ fills out the form.</p>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">live_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="va">input</span><span class="op">$</span><span class="va">mysurvey_data_live</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>Use <code>input$&lt;id&gt;_data_live</code> for live data.</li>
 <li>Use <code>input$&lt;id&gt;_data</code> for final, completed
@@ -156,9 +155,9 @@ responses.</li>
 </ul>
 <hr>
 </div>
-<div class="section level3">
-<h3 id="dynamic-updates-update-survey-from-server">Dynamic Updates: Update Survey from Server<a class="anchor" aria-label="anchor" href="#dynamic-updates-update-survey-from-server"></a>
-</h3>
+<div class="section level2">
+<h2 id="dynamic-updates-update-survey-from-server">Dynamic Updates: Update Survey from Server<a class="anchor" aria-label="anchor" href="#dynamic-updates-update-survey-from-server"></a>
+</h2>
 <p>Use <code><a href="../reference/updateSurveyjs.html">updateSurveyjs()</a></code> to change schema, initial data,
 theme, or locale on the fly.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -187,12 +186,14 @@ theme, or locale on the fly.</p>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
-<div class="section level3">
-<h3 id="saving-and-loading-responses-with-a-database">Saving and Loading Responses with a Database<a class="anchor" aria-label="anchor" href="#saving-and-loading-responses-with-a-database"></a>
-</h3>
+<div class="section level2">
+<h2 id="saving-and-loading-responses-with-a-database">Saving and Loading Responses with a Database<a class="anchor" aria-label="anchor" href="#saving-and-loading-responses-with-a-database"></a>
+</h2>
 <p>Here’s a minimal example using <a href="https://dbi.r-dbi.org" class="external-link">DBI</a> and SQLite for
 persistent storage.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -254,9 +255,9 @@ or use another DBI-compatible backend.</li>
 </ul>
 <hr>
 </div>
-<div class="section level3">
-<h3 id="common-pitfalls-further-reference">Common Pitfalls &amp; Further Reference<a class="anchor" aria-label="anchor" href="#common-pitfalls-further-reference"></a>
-</h3>
+<div class="section level2">
+<h2 id="common-pitfalls-further-reference">Common Pitfalls &amp; Further Reference<a class="anchor" aria-label="anchor" href="#common-pitfalls-further-reference"></a>
+</h2>
 <ul>
 <li>
 <strong>Input IDs:</strong>
@@ -295,7 +296,6 @@ documentation</a></li>
 </ul>
 </li>
 </ul>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

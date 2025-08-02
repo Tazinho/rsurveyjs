@@ -94,6 +94,8 @@ server <- function(input, output, session) {
     input$mysurvey_data_live
   })
 }
+
+shinyApp(ui, server)
 ```
 
 - Use `input$<id>_data_live` for live data.
@@ -132,6 +134,8 @@ server <- function(input, output, session) {
     ))
   })
 }
+
+shinyApp(ui, server)
 ```
 
 ---

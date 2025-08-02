@@ -5,8 +5,6 @@ output: rmarkdown::html_vignette
 internal: true
 ---
 
-# Survey Recipes & Guides
-
 Welcome! Here you’ll find hands-on recipes and advanced usage for `rsurveyjs`.  
 Click any topic to jump in—every example is copy-paste ready.
 

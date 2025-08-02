@@ -61,9 +61,6 @@
 
     
     
-<div class="section level2">
-<h2 id="themes-styling-and-localization">Themes, Styling and Localization<a class="anchor" aria-label="anchor" href="#themes-styling-and-localization"></a>
-</h2>
 <ul>
 <li><em>Change the look and feel of your survey with built-in or custom
 themes.</em></li>
@@ -75,9 +72,9 @@ Recipes].</em></li>
 <li><em>Tip: Can’t see your theme? Run <code><a href="../reference/surveyjs_themes.html">surveyjs_themes()</a></code> to
 check spelling!</em></li>
 </ul>
-<div class="section level3">
-<h3 id="table-of-contents">Table of Contents<a class="anchor" aria-label="anchor" href="#table-of-contents"></a>
-</h3>
+<div class="section level2">
+<h2 id="table-of-contents">Table of Contents<a class="anchor" aria-label="anchor" href="#table-of-contents"></a>
+</h2>
 <ul>
 <li><a href="#themes-built-in-styles">Themes: Built-in Styles</a></li>
 <li><a href="#custom-styling-with-css-variables">Custom Styling with CSS
@@ -88,9 +85,9 @@ Changing Survey Language</a></li>
 <li><a href="#further-reference">Further Reference</a></li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="themes-built-in-styles">Themes: Built-in Styles<a class="anchor" aria-label="anchor" href="#themes-built-in-styles"></a>
-</h3>
+<div class="section level2">
+<h2 id="themes-built-in-styles">Themes: Built-in Styles<a class="anchor" aria-label="anchor" href="#themes-built-in-styles"></a>
+</h2>
 <p>SurveyJS offers a variety of built-in themes to match modern UI
 patterns. Themes are well documented under <a href="https://surveyjs.io/form-library/documentation/manage-default-themes-and-styles" class="external-link">Themes
 &amp; Styles</a> from the original surveyjs documentation. General
@@ -98,9 +95,9 @@ speaking every theme comes with a light/dark version and in a
 panel/panelless variant. For convenience all available themes are
 referenced under <code><a href="../reference/surveyjs_themes.html">surveyjs_themes()</a></code> within
 <code>rsurveyjs</code>.</p>
-<div class="section level4">
-<h4 id="using-a-built-in-theme">Using a built-in theme<a class="anchor" aria-label="anchor" href="#using-a-built-in-theme"></a>
-</h4>
+<div class="section level3">
+<h3 id="using-a-built-in-theme">Using a built-in theme<a class="anchor" aria-label="anchor" href="#using-a-built-in-theme"></a>
+</h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/surveyjs.html">surveyjs</a></span><span class="op">(</span></span>
 <span>  schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -120,9 +117,9 @@ Styling with CSS Variables</p>
 <p>You can override <a href="https://surveyjs.io/form-library/documentation/manage-default-themes-and-styles" class="external-link">CSS
 variables</a> to change colors, corners, fonts, and more.</p>
 </div>
-<div class="section level4">
-<h4 id="example-custom-brand-colors">Example: Custom brand colors<a class="anchor" aria-label="anchor" href="#example-custom-brand-colors"></a>
-</h4>
+<div class="section level3">
+<h3 id="example-custom-brand-colors">Example: Custom brand colors<a class="anchor" aria-label="anchor" href="#example-custom-brand-colors"></a>
+</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/surveyjs.html">surveyjs</a></span><span class="op">(</span></span>
 <span>  schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -144,9 +141,9 @@ variables</a> to change colors, corners, fonts, and more.</p>
 list, see [SurveyJS theme variable docs].</p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="list-available-themes">List Available Themes<a class="anchor" aria-label="anchor" href="#list-available-themes"></a>
-</h3>
+<div class="section level2">
+<h2 id="list-available-themes">List Available Themes<a class="anchor" aria-label="anchor" href="#list-available-themes"></a>
+</h2>
 <p>You can list all available themes in rsurveyjs with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/surveyjs_themes.html">surveyjs_themes</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -172,16 +169,16 @@ list, see [SurveyJS theme variable docs].</p>
 <span><span class="co">#&gt; [39] "ThreeDimensionalLight"           "ThreeDimensionalLightPanelless" </span></span>
 <span><span class="co">#&gt; [41] "__surveyjs_internal_themes_hash" "default"</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="localization-changing-survey-language">Localization: Changing Survey Language<a class="anchor" aria-label="anchor" href="#localization-changing-survey-language"></a>
-</h3>
+<div class="section level2">
+<h2 id="localization-changing-survey-language">Localization: Changing Survey Language<a class="anchor" aria-label="anchor" href="#localization-changing-survey-language"></a>
+</h2>
 <p>Easily switch the language of your survey UI for international
 audiences. (Note: <em>only</em> technical key-words like “Complete” etc.
 get properly translated via the <code>locale</code> argument.) If you
 want more, see the multi-locale support section below.</p>
-<div class="section level4">
-<h4 id="example-german-language">Example: German language<a class="anchor" aria-label="anchor" href="#example-german-language"></a>
-</h4>
+<div class="section level3">
+<h3 id="example-german-language">Example: German language<a class="anchor" aria-label="anchor" href="#example-german-language"></a>
+</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/surveyjs.html">surveyjs</a></span><span class="op">(</span></span>
 <span>  schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -195,17 +192,17 @@ want more, see the multi-locale support section below.</p>
 <div class="surveyjs html-widget html-fill-item" id="htmlwidget-36aa3d2a04d42bbc2145" style="width:768px;height:432.632880098888px;"></div>
 <script type="application/json" data-for="htmlwidget-36aa3d2a04d42bbc2145">{"x":{"schema":{"title":"Umfrage","questions":[{"type":"rating","name":"zufriedenheit","title":"Wie zufrieden sind Sie?"}]},"data":null,"read_only":false,"live":false,"theme":"DefaultLight","theme_vars":null,"locale":"de","pre_render_hook":null,"post_render_hook":null,"complete_hook":null,"element_id":null},"evals":[],"jsHooks":[]}</script>
 </div>
-<div class="section level4">
-<h4 id="supported-languages">Supported Languages<a class="anchor" aria-label="anchor" href="#supported-languages"></a>
-</h4>
+<div class="section level3">
+<h3 id="supported-languages">Supported Languages<a class="anchor" aria-label="anchor" href="#supported-languages"></a>
+</h3>
 <p>SurveyJS supports many locales: <code>"en"</code>, <code>"de"</code>,
 <code>"fr"</code>, <code>"es"</code>, <code>"pt"</code>,
 <code>"ru"</code>, and more. See <a href="https://surveyjs.io/form-library/documentation/localization#localization" class="external-link">SurveyJS
 localization docs</a> for the full list.</p>
 </div>
-<div class="section level4">
-<h4 id="multi-locale-support">Multi-locale support<a class="anchor" aria-label="anchor" href="#multi-locale-support"></a>
-</h4>
+<div class="section level3">
+<h3 id="multi-locale-support">Multi-locale support<a class="anchor" aria-label="anchor" href="#multi-locale-support"></a>
+</h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/surveyjs.html">surveyjs</a></span><span class="op">(</span></span>
 <span>  schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -238,9 +235,9 @@ localization docs</a> for the full list.</p>
 <script type="application/json" data-for="htmlwidget-febe03efa1a2d8d52a86">{"x":{"schema":{"title":{"en":"Satisfaction Survey","fr":"Enquête de satisfaction"},"questions":[{"type":"rating","name":"satisfaction","title":{"en":"How satisfied are you?","fr":"Êtes-vous satisfait ?"}},{"type":"comment","name":"comments","title":{"en":"Additional comments","fr":"Commentaires supplémentaires"}}]},"data":null,"read_only":false,"live":false,"theme":"DefaultLight","theme_vars":null,"locale":"fr","pre_render_hook":null,"post_render_hook":null,"complete_hook":null,"element_id":null},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<div class="section level3">
-<h3 id="further-reference">Further Reference<a class="anchor" aria-label="anchor" href="#further-reference"></a>
-</h3>
+<div class="section level2">
+<h2 id="further-reference">Further Reference<a class="anchor" aria-label="anchor" href="#further-reference"></a>
+</h2>
 <ul>
 <li><p><a href="https://surveyjs.io/form-library/documentation/manage-default-themes-and-styles" class="external-link">SurveyJS:
 Manage default themes and styles</a></p></li>
@@ -248,7 +245,6 @@ Manage default themes and styles</a></p></li>
 Localization</a></p></li>
 <li><p>See also: <a href="">Survey Schema Recipes</a></p></li>
 </ul>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
